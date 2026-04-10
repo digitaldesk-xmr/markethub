@@ -16,6 +16,7 @@
             <a href="index.html" data-key="nav_home">Home</a>
             <a href="products.html" data-key="nav_products">Prodotti</a>
             <a href="dashboard.html" data-key="nav_dashboard">Dashboard</a>
+            <a href="exchange.html">Exchange</a>
             <div class="lang-switch">
                 <button class="lang-btn" onclick="setLanguage('it')">🇮🇹 IT</button>
                 <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
@@ -51,7 +52,7 @@
     <div class="container">
         <h2 data-key="features_title">Perché scegliere MarketHub</h2>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">💳</div><h3 data-key="feat1_title">Pagamenti flessibili</h3><p data-key="feat1_desc">Carta, PayPal, Bitcoin, Ethereum e 300+ crypto</p></div>
+            <div class="feature-card"><div class="feature-icon">💳</div><h3 data-key="feat1_title">Pagamenti flessibili</h3><p data-key="feat1_desc">Bitcoin, Ethereum, USDT e 300+ criptovalute</p></div>
             <div class="feature-card"><div class="feature-icon">🌍</div><h3 data-key="feat2_title">Vendita globale</h3><p data-key="feat2_desc">Raggiungi compratori in 120+ paesi</p></div>
             <div class="feature-card"><div class="feature-icon">📦</div><h3 data-key="feat3_title">Prodotti fisici</h3><p data-key="feat3_desc">Elettronica, moda, arredamento, collezionismo</p></div>
             <div class="feature-card"><div class="feature-icon">🛡️</div><h3 data-key="feat4_title">Protezione acquisti</h3><p data-key="feat4_desc">Recensioni verificate e assistenza clienti</p></div>
@@ -69,7 +70,7 @@
                 <div class="price">€9,90<span data-key="plan_duration">/30 giorni</span></div>
                 <ul>
                     <li data-key="feature_unlimited">✓ Prodotti illimitati</li>
-                    <li data-key="feature_payments">✓ Pagamenti crypto e carte</li>
+                    <li data-key="feature_payments">✓ Pagamenti crypto</li>
                     <li data-key="feature_messages">✓ Messaggistica integrata</li>
                     <li data-key="feature_stats">✓ Statistiche vendite</li>
                     <li data-key="feature_support">✓ Supporto prioritario</li>
@@ -85,7 +86,7 @@
 
 <div id="registerModal" class="modal"><div class="modal-content"><span class="close" onclick="closeRegister()">&times;</span><h2 data-key="register_title">Registrati</h2><form id="registerForm"><div class="form-group"><label data-key="name_label">Nome completo</label><input type="text" id="regName" required></div><div class="form-group"><label data-key="email_label">Email</label><input type="email" id="regEmail" required></div><div class="form-group"><label data-key="password_label">Password</label><input type="password" id="regPassword" required></div><div class="form-group"><label data-key="confirm_label">Conferma password</label><input type="password" id="regConfirmPassword" required></div><button type="submit" class="btn btn-primary" data-key="register_btn">Registrati</button></form><p data-key="have_account">Hai già un account? <a href="#" onclick="switchToLogin()" data-key="login_link">Accedi</a></p></div></div>
 
-<div id="subscriptionModal" class="modal"><div class="modal-content"><span class="close" onclick="closeSubscriptionModal()">&times;</span><h2 data-key="subscription_title">Abbonamento Venditore - €9,90</h2><p data-key="payment_choice">Scegli il metodo di pagamento:</p><div class="payment-methods"><button class="btn btn-primary" onclick="payWithStripe()" data-key="pay_card">💳 Paga con Carta (Stripe)</button><button class="btn btn-secondary" onclick="payWithCrypto()" data-key="pay_crypto">💰 Paga con Crypto (NOWPayments)</button></div></div></div>
+<div id="subscriptionModal" class="modal"><div class="modal-content"><span class="close" onclick="closeSubscriptionModal()">&times;</span><h2 data-key="subscription_title">Abbonamento Venditore - €9,90</h2><p data-key="payment_choice">Paga in crypto con NOWPayments:</p><div id="subPaymentOptions" class="payment-methods"></div></div></div>
 
 <footer><div class="container"><p>&copy; 2025 MarketHub - <span data-key="footer_payments">Il marketplace globale per prodotti fisici</span></p></div></footer>
 
