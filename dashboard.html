@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - MarketHub</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar">
@@ -38,6 +39,20 @@
     </div>
     <div class="recent-products"><h2>I tuoi ultimi prodotti</h2><div id="recentProductsList" class="products-grid"></div></div>
 </div>
+
+<!-- Modale per abbonamento (aggiunto) -->
+<div id="subscriptionModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeSubscriptionModal()">&times;</span>
+        <h2>Abbonamento Venditore - €9,90</h2>
+        <p>Scegli il metodo di pagamento:</p>
+        <div id="subPaymentOptions" class="payment-methods">
+            <button class="btn btn-primary" onclick="payWithStripe()">💳 Paga con Carta (Stripe)</button>
+            <button class="btn btn-secondary" onclick="payWithCrypto()">💰 Paga con Crypto (NOWPayments)</button>
+        </div>
+    </div>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
