@@ -12,7 +12,6 @@ body {
     min-height: 100vh;
 }
 
-/* Navbar */
 .navbar {
     background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(12px);
@@ -115,7 +114,6 @@ body {
     box-shadow: 0 5px 15px rgba(249,115,22,0.4);
 }
 
-/* Hero */
 .hero {
     background: radial-gradient(circle at 20% 30%, rgba(249,115,22,0.15), transparent 50%),
                 linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
@@ -123,22 +121,6 @@ body {
     text-align: center;
     position: relative;
     overflow: hidden;
-}
-
-.hero::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 70%);
-    animation: rotate 30s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
 }
 
 .hero-content {
@@ -179,7 +161,6 @@ body {
     flex-wrap: wrap;
 }
 
-/* Buttons */
 .btn {
     padding: 0.9rem 2.2rem;
     border-radius: 50px;
@@ -211,7 +192,6 @@ body {
     transform: translateY(-3px);
 }
 
-/* Stats */
 .stats {
     padding: 4rem 2rem;
     background: rgba(15, 23, 42, 0.6);
@@ -242,7 +222,6 @@ body {
     margin-top: 0.5rem;
 }
 
-/* Features */
 .features {
     padding: 6rem 2rem;
     background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
@@ -302,7 +281,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Pricing */
 .pricing {
     padding: 6rem 2rem;
     background: radial-gradient(circle at 80% 20%, rgba(249,115,22,0.1), transparent 60%),
@@ -381,7 +359,6 @@ body {
     color: #cbd5e1;
 }
 
-/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -428,7 +405,6 @@ body {
     color: #f97316;
 }
 
-/* Form */
 .form-group {
     margin-bottom: 1.2rem;
 }
@@ -463,7 +439,6 @@ body {
     gap: 1rem;
 }
 
-/* Dashboard */
 .dashboard-container, .products-container, .upload-container, .messages-container {
     max-width: 1280px;
     margin: 2rem auto;
@@ -528,7 +503,6 @@ body {
     margin-bottom: 1.5rem;
 }
 
-/* Products Grid */
 .products-header {
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(10px);
@@ -599,4 +573,282 @@ body {
 
 .product-title {
     font-weight: 600;
-    margin-bottom: 0
+    margin-bottom: 0.5rem;
+    color: #f1f5f9;
+}
+
+.product-price {
+    color: #f97316;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.product-seller {
+    color: #94a3b8;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.upload-container {
+    max-width: 800px;
+}
+
+.upload-container h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.upload-container p {
+    color: #94a3b8;
+    margin-bottom: 1rem;
+}
+
+.upload-form {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.image-preview {
+    margin-top: 10px;
+}
+
+.image-preview img {
+    max-width: 200px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+.subscription-status {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 40px;
+    font-size: 0.9rem;
+    display: inline-block;
+}
+
+.subscription-status.active {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.subscription-status.inactive {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.alert {
+    padding: 1rem;
+    border-radius: 16px;
+    margin-top: 1rem;
+    display: none;
+}
+
+.alert.success {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    display: block;
+}
+
+.alert.error {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    display: block;
+}
+
+.messages-container {
+    max-width: 1280px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.messages-header {
+    margin-bottom: 1.5rem;
+}
+
+.messages-header h1 {
+    font-size: 1.8rem;
+}
+
+.messages-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1rem;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 500px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.conversations-list {
+    background: rgba(0,0,0,0.2);
+    border-right: 1px solid rgba(255,255,255,0.08);
+    padding: 1rem;
+}
+
+.conversations-list h3 {
+    font-size: 1rem;
+    color: #94a3b8;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.conversation-item {
+    padding: 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    cursor: pointer;
+    transition: background 0.2s;
+    border-radius: 12px;
+    position: relative;
+}
+
+.conversation-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.conversation-name {
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+.conversation-last {
+    font-size: 0.75rem;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.conversation-product {
+    font-size: 0.7rem;
+    color: #f97316;
+    margin-top: 4px;
+}
+
+.unread-badge {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: #f97316;
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.chat-area {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+}
+
+.chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    background: rgba(0,0,0,0.2);
+}
+
+.chat-message {
+    margin-bottom: 1rem;
+    max-width: 70%;
+}
+
+.chat-message.sent {
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat-message .message-text {
+    background: linear-gradient(135deg, #f97316, #ec4899);
+    color: white;
+    padding: 8px 14px;
+    border-radius: 18px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.chat-message.received .message-text {
+    background: rgba(255,255,255,0.1);
+    color: #f1f5f9;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.message-product {
+    font-size: 0.7rem;
+    color: #f97316;
+    margin-top: 4px;
+}
+
+.chat-input {
+    padding: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(0,0,0,0.2);
+}
+
+.chat-input textarea {
+    flex: 1;
+    padding: 0.75rem;
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.05);
+    color: #f1f5f9;
+    resize: none;
+    font-family: inherit;
+}
+
+.payment-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+footer {
+    background: #0f172a;
+    color: #94a3b8;
+    text-align: center;
+    padding: 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+@media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .messages-layout { grid-template-columns: 1fr; }
+    .nav-container { flex-direction: column; }
+    .stats-grid { gap: 2rem; }
+    .features-grid { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .products-grid { grid-template-columns: 1fr; }
+}
