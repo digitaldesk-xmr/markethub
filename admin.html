@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .admin-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .admin-header { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .users-table { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem; overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        th { color: #f97316; font-weight: 600; }
+        .badge-active { background: #22c55e; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
+        .badge-inactive { background: #ef4444; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
+        .btn-small { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0 0.2rem; }
+        .login-form { max-width: 400px; margin: 5rem auto; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 24px; }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub Admin</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="admin.html">Admin</a>
+            <a href="#" onclick="logoutAdmin()">Esci</a>
+        </div>
+    </div>
+</nav>
+
+<div id="adminLogin" class="admin-container">
+    <div class="login-form">
+        <h2>Admin Login</h2>
+        <input type="password" id="adminPassword" placeholder="Inserisci password" style="width:100%; padding:0.8rem; margin:1rem 0; border-radius:12px;">
+        <button class="btn btn-primary" onclick="checkAdminLogin()">Accedi</button>
+        <p style="margin-top:1rem; color:#94a3b8;">Password predefinita: <strong>admin123</strong></p>
+    </div>
+</div>
+
+<div id="adminPanel" class="admin-container hidden">
+    <div class="admin-header">
+        <h1>👑 Pannello Admin</h1>
+        <p>Gestisci abbonamenti dei venditori</p>
+    </div>
+    
+    <div class="users-table">
+        <h3>📋 Lista Venditori</h3>
+        <div style="overflow-x: auto;">
+            <table id="usersTable">
+                <thead>
+                    <tr><th>Email</th><th>Nome</th><th>Data registrazione</th><th>Abbonamento</th><th>Scadenza</th><th>Azioni</th></tr>
+                </thead>
+                <tbody id="usersTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem;">
+        <h3>➕ Attiva abbonamento manualmente</h3>
+        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
+            <input type="email" id="manualEmail" placeholder="Email venditore" style="flex:1; padding:0.8rem; border-radius:12px;">
+            <select id="manualDays" style="padding:0.8rem; border-radius:12px;">
+                <option value="30">30 giorni (€9,90)</option>
+                <option value="90">90 giorni (€27)</option>
+                <option value="365">365 giorni (€99)</option>
+            </select>
+            <button class="btn btn-primary" onclick="manualActivateSubscription()">Attiva abbonamento</button>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem;">
+        <h3>📊 Statistiche</h3>
+        <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+            <div><strong id="statUsers">0</strong> <span style="color:#94a3b8;">Venditori registrati</span></div>
+            <div><strong id="statActive">0</strong> <span style="color:#94a3b8;">Abbonamenti attivi</span></div>
+            <div><strong id="statProducts">0</strong> <span style="color:#94a3b8;">Prodotti totali</span></div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+    let adminLoggedIn = false;
+    
+    function checkAdminLogin() {
+        let pwd = document.getElementById('adminPassword').value;
+        // Password predefinita: admin123
+        if (pwd === 'admin123') {
+            adminLoggedIn = true;
+            localStorage.setItem('adminLoggedIn', 'true');
+            document.getElementById('adminLogin').classList.add('hidden');
+            document.getElementById('adminPanel').classList.remove('hidden');
+            loadAdminData();
+        } else {
+            alert('Password errata');
+        }
+    }
+    
+    function logoutAdmin() {
+        localStorage.removeItem('adminLoggedIn');
+        window.location.href = 'index.html';
+    }
+    
+    function loadAdminData() {
+        // Carica tutti gli utenti
+        let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
+        let products = JSON.parse(localStorage.getItem('markethubProducts') || '[]');
+        let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
+        
+        document.getElementById('statUsers').innerText = users.length;
+        document.getElementById('statProducts').innerText = products.length;
+        
+        let activeCount = 0;
+        let tbody = document.getElementById('usersTableBody');
+        tbody.innerHTML = '';
+        
+        users.forEach(user => {
+            let sub = subscriptions[user.email];
+            let isActive = false;
+            let expiryDate = '';
+            let daysLeft = 0;
+            
+            if (sub && sub.expiresDate) {
+                let expiry = new Date(sub.expiresDate);
+                let now = new Date();
+                isActive = expiry > now;
+                if (isActive) {
+                    activeCount++;
+                    daysLeft = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+                    expiryDate = expiry.toLocaleDateString() + ` (${daysLeft} giorni rimasti)`;
+                } else {
+                    expiryDate = 'Scaduto il ' + new Date(sub.expiresDate).toLocaleDateString();
+                }
+            } else {
+                expiryDate = 'Mai attivato';
+            }
+            
+            let userProducts = products.filter(p => p.sellerEmail === user.email).length;
+            
+            tbody.innerHTML += `
+                <tr>
+                    <td>${user.email}</td>
+                    <td>${user.name}</td>
+                    <td>${new Date(user.joinDate).toLocaleDateString()}</td>
+                    <td>${isActive ? '<span class="badge-active">Attivo</span>' : '<span class="badge-inactive">Inattivo</span>'}</td>
+                    <td>${expiryDate}</td>
+                    <td>
+                        <button class="btn-small btn-primary" onclick="activateUserSubscription('${user.email}', 30)">Attiva 30gg</button>
+                        <button class="btn-small btn-secondary" onclick="deactivateUserSubscription('${user.email}')">Disattiva</button>
+                        <button class="btn-small" onclick="deleteUserProducts('${user.email}')">Cancella prodotti</button>
+                    </td>
+                </tr>
+            `;
+        });
+        
+        document.getElementById('statActive').innerText = activeCount;
+    }
+    
+    function activateUserSubscription(email, days) {
+        let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
+        subscriptions[email] = {
+            expiresDate: new Date(Date.now() + days * 86400000).toISOString(),
+            activatedBy: 'admin',
+            activatedAt: new Date().toISOString()
+        };
+        localStorage.setItem('markethubSubscriptions', JSON.stringify(subscriptions));
+        alert(`Abbonamento attivato per ${email} per ${days} giorni`);
+        loadAdminData();
+    }
+    
+    function deactivateUserSubscription(email) {
+        let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
+        delete subscriptions[email];
+        localStorage.setItem('markethubSubscriptions', JSON.stringify(subscriptions));
+        alert(`Abbonamento disattivato per ${email}`);
+        loadAdminData();
+    }
+    
+    function deleteUserProducts(email) {
+        let products = JSON.parse(localStorage.getItem('markethubProducts') || '[]');
+        let newProducts = products.filter(p => p.sellerEmail !== email);
+        localStorage.setItem('markethubProducts', JSON.stringify(newProducts));
+        alert(`Prodotti cancellati per ${email}`);
+        loadAdminData();
+    }
+    
+    function manualActivateSubscription() {
+        let email = document.getElementById('manualEmail').value;
+        let days = parseInt(document.getElementById('manualDays').value);
+        if (!email) {
+            alert('Inserisci email');
+            return;
+        }
+        activateUserSubscription(email, days);
+        document.getElementById('manualEmail').value = '';
+    }
+    
+    // Controlla se admin era già loggato
+    if (localStorage.getItem('adminLoggedIn') === 'true') {
+        document.getElementById('adminLogin').classList.add('hidden');
+        document.getElementById('adminPanel').classList.remove('hidden');
+        loadAdminData();
+    }
+</script>
+</body>
+</html>
