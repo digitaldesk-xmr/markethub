@@ -15,6 +15,7 @@
             <a href="index.html">Home</a>
             <a href="products.html">Prodotti</a>
             <a href="dashboard.html">Dashboard</a>
+            <a href="exchange.html">Exchange</a>
             <a href="messages.html">Messaggi</a>
             <a href="upload-product.html">Carica</a>
             <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
@@ -40,16 +41,13 @@
     <div class="recent-products"><h2>I tuoi ultimi prodotti</h2><div id="recentProductsList" class="products-grid"></div></div>
 </div>
 
-<!-- Modale per abbonamento (aggiunto) -->
+<!-- Modale per abbonamento -->
 <div id="subscriptionModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeSubscriptionModal()">&times;</span>
         <h2>Abbonamento Venditore - €9,90</h2>
-        <p>Scegli il metodo di pagamento:</p>
-        <div id="subPaymentOptions" class="payment-methods">
-            <button class="btn btn-primary" onclick="payWithStripe()">💳 Paga con Carta (Stripe)</button>
-            <button class="btn btn-secondary" onclick="payWithCrypto()">💰 Paga con Crypto (NOWPayments)</button>
-        </div>
+        <p>Paga in crypto con NOWPayments:</p>
+        <div id="subPaymentOptions" class="payment-methods"></div>
     </div>
 </div>
 
