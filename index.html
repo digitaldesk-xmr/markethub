@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketHub - Marketplace Globale</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Prodotti</a>
+            <a href="dashboard.html">Dashboard</a>
+            <div class="lang-switch">
+                <button class="lang-btn" onclick="setLanguage('it')">🇮🇹 IT</button>
+                <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
+            </div>
+            <button class="btn-outline" onclick="showLogin()">Accedi</button>
+            <button class="btn-primary-small" onclick="showRegister()">Registrati</button>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="hero-content">
+        <h1>Vendi i tuoi prodotti <span class="gradient">in tutto il mondo</span></h1>
+        <p>MarketHub è il marketplace dove chiunque può vendere prodotti fisici. Pagamenti sicuri, commissioni trasparenti, community globale.</p>
+        <div class="hero-buttons">
+            <button class="btn btn-primary" onclick="showRegister()">Inizia a vendere</button>
+            <button class="btn btn-secondary" onclick="window.location.href='products.html'">Esplora prodotti</button>
+        </div>
+    </div>
+</header>
+
+<section class="stats">
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-item"><div class="stat-number">10k+</div><div class="stat-label">Venditori attivi</div></div>
+            <div class="stat-item"><div class="stat-number">50k+</div><div class="stat-label">Prodotti venduti</div></div>
+            <div class="stat-item"><div class="stat-number">120+</div><div class="stat-label">Paesi raggiunti</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2>Perché scegliere MarketHub</h2>
+        <div class="features-grid">
+            <div class="feature-card"><div class="feature-icon">💳</div><h3>Pagamenti flessibili</h3><p>Carta di credito, PayPal, Bitcoin, Ethereum e 300+ criptovalute</p></div>
+            <div class="feature-card"><div class="feature-icon">🌍</div><h3>Vendita globale</h3><p>Raggiungi compratori in 120+ paesi senza barriere</p></div>
+            <div class="feature-card"><div class="feature-icon">📦</div><h3>Prodotti fisici</h3><p>Elettronica, moda, arredamento, collezionismo e molto altro</p></div>
+            <div class="feature-card"><div class="feature-icon">🛡️</div><h3>Protezione acquisti</h3><p>Sistema di recensioni verificate e assistenza clienti</p></div>
+        </div>
+    </div>
+</section>
+
+<section class="pricing">
+    <div class="container">
+        <h2>Diventa venditore</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card popular">
+                <div class="badge">🔥 Più venduto</div>
+                <h3>Piano Venditore</h3>
+                <div class="price">€9,90<span>/30 giorni</span></div>
+                <ul>
+                    <li>✓ Prodotti illimitati</li>
+                    <li>✓ Pagamenti crypto e carte</li>
+                    <li>✓ Messaggistica integrata</li>
+                    <li>✓ Statistiche vendite</li>
+                    <li>✓ Supporto prioritario</li>
+                </ul>
+                <button class="btn btn-primary" onclick="startSubscription()">Attiva ora</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modali -->
+<div id="loginModal" class="modal"><div class="modal-content"><span class="close" onclick="closeLogin()">&times;</span><h2>Accedi</h2><form id="loginForm"><div class="form-group"><label>Email</label><input type="email" id="loginEmail" required></div><div class="form-group"><label>Password</label><input type="password" id="loginPassword" required></div><button type="submit" class="btn btn-primary">Accedi</button></form><p>Non hai un account? <a href="#" onclick="switchToRegister()">Registrati</a></p></div></div>
+
+<div id="registerModal" class="modal"><div class="modal-content"><span class="close" onclick="closeRegister()">&times;</span><h2>Registrati</h2><form id="registerForm"><div class="form-group"><label>Nome completo</label><input type="text" id="regName" required></div><div class="form-group"><label>Email</label><input type="email" id="regEmail" required></div><div class="form-group"><label>Password</label><input type="password" id="regPassword" required></div><div class="form-group"><label>Conferma password</label><input type="password" id="regConfirmPassword" required></div><button type="submit" class="btn btn-primary">Registrati</button></form><p>Hai già un account? <a href="#" onclick="switchToLogin()">Accedi</a></p></div></div>
+
+<div id="subscriptionModal" class="modal"><div class="modal-content"><span class="close" onclick="closeSubscriptionModal()">&times;</span><h2>Abbonamento Venditore - €9,90</h2><p>Scegli il metodo di pagamento:</p><div class="payment-methods"><button class="btn btn-primary" onclick="payWithStripe()">💳 Paga con Carta (Stripe)</button><button class="btn btn-secondary" onclick="payWithCrypto()">💰 Paga con Crypto (NOWPayments)</button></div></div></div>
+
+<footer><div class="container"><p>&copy; 2025 MarketHub - Il marketplace globale per prodotti fisici</p></div></footer>
+
+<script src="script.js"></script>
+</body>
+</html>

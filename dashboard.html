@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Prodotti</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="messages.html">Messaggi</a>
+            <a href="upload-product.html">Carica</a>
+            <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
+            <a href="#" onclick="logout()">Esci</a>
+        </div>
+    </div>
+</nav>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Ciao, <span id="userName"></span>! 👋</h1>
+        <div id="subscriptionStatus" class="subscription-status"></div>
+    </div>
+    <div class="stats-grid">
+        <div class="stat-card"><div class="stat-number" id="totalProducts">0</div><div class="stat-label">Prodotti in vendita</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalSales">0</div><div class="stat-label">Vendite totali</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalRevenue">€0</div><div class="stat-label">Guadagno totale</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalViews">0</div><div class="stat-label">Visualizzazioni</div></div>
+    </div>
+    <div class="dashboard-actions">
+        <button class="btn btn-primary" onclick="window.location.href='upload-product.html'">➕ Nuovo prodotto</button>
+        <button class="btn btn-secondary" onclick="window.location.href='products.html'">👁️ I tuoi prodotti</button>
+    </div>
+    <div class="recent-products"><h2>I tuoi ultimi prodotti</h2><div id="recentProductsList" class="products-grid"></div></div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

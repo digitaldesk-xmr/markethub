@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prodotti - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Prodotti</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="messages.html">Messaggi</a>
+            <a href="upload-product.html">Carica</a>
+            <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
+            <a href="#" onclick="logout()">Esci</a>
+        </div>
+    </div>
+</nav>
+<div class="products-container">
+    <div class="products-header">
+        <h1>Tutti i prodotti</h1>
+        <div class="filters">
+            <input type="text" id="searchInput" placeholder="🔍 Cerca prodotti..." onkeyup="filterProducts()">
+            <select id="categoryFilter" onchange="filterProducts()">
+                <option value="all">Tutte le categorie</option>
+                <option value="Elettronica">Elettronica</option>
+                <option value="Abbigliamento">Abbigliamento</option>
+                <option value="Casa">Casa e Arredamento</option>
+                <option value="Sport">Sport</option>
+                <option value="Collezionismo">Collezionismo</option>
+                <option value="Altro">Altro</option>
+            </select>
+        </div>
+    </div>
+    <div id="productsList" class="products-grid"></div>
+</div>
+<div id="productModal" class="modal"><div class="modal-content modal-large"><span class="close" onclick="closeProductModal()">&times;</span><div id="productDetail"></div><div id="paymentButtons" class="payment-buttons"></div></div></div>
+<script src="script.js"></script>
+</body>
+</html>

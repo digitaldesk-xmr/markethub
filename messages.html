@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaggi - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Prodotti</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="messages.html">Messaggi</a>
+            <a href="upload-product.html">Carica</a>
+            <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
+            <a href="#" onclick="logout()">Esci</a>
+        </div>
+    </div>
+</nav>
+<div class="messages-container">
+    <div class="messages-header"><h1>💬 Messaggi</h1></div>
+    <div class="messages-layout">
+        <div class="conversations-list"><h3>Conversazioni</h3><div id="conversationsList"></div></div>
+        <div class="chat-area"><div id="chatHeader" class="chat-header"><p>Seleziona una conversazione</p></div><div id="chatMessages" class="chat-messages"></div><div id="chatInput" class="chat-input" style="display:none;"><textarea id="messageText" placeholder="Scrivi un messaggio..." rows="2"></textarea><button class="btn btn-primary" onclick="sendMessage()">Invia</button></div></div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
