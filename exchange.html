@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exchange Crypto - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .exchange-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .exchange-header { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
+        .widget-container { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1rem; margin-bottom: 2rem; }
+        .affiliate-box { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem; text-align: center; margin-top: 2rem; }
+        .affiliate-link, .monero-address { background: #1e293b; padding: 1rem; border-radius: 16px; font-family: monospace; word-break: break-all; margin: 1rem 0; }
+        .copy-btn { background: #f97316; color: white; border: none; padding: 0.5rem 1.5rem; border-radius: 40px; cursor: pointer; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="products.html">Prodotti</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="exchange.html">Exchange</a>
+            <a href="messages.html">Messaggi</a>
+            <a href="upload-product.html">Carica</a>
+            <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
+            <a href="#" onclick="logout()">Esci</a>
+        </div>
+    </div>
+</nav>
+<div class="exchange-container">
+    <div class="exchange-header">
+        <h1>💰 Crypto Exchange</h1>
+        <p>Scambia criptovalute in modo semplice, veloce e sicuro con Trocador</p>
+    </div>
+    <div class="widget-container">
+        <h3 style="margin-bottom:1rem;">📊 Widget Exchange</h3>
+        <iframe src="https://trocador.app/widget/?ref=7r1gqp1T5p" width="100%" height="600" scrolling="no" style="border:none; border-radius:16px;"></iframe>
+    </div>
+    <div class="affiliate-box">
+        <h3>🔗 Link di affiliazione Trocador</h3>
+        <div class="affiliate-link" id="affiliateLink">https://trocador.app/?ref=7r1gqp1T5p</div>
+        <button class="copy-btn" onclick="copyAffiliateLink()">📋 Copia link</button>
+    </div>
+    <div class="affiliate-box">
+        <h3>🏦 Il tuo indirizzo Monero (XMR)</h3>
+        <div class="monero-address" id="moneroAddress">89Ffe9jfPGrLZ1XLzzkereG6SVqKHbH2h4ScDFE12IWHeGABsfSAfkKa53iRD3EUEGktU46ZjeFL6p8NzTWewufj6obCp</div>
+        <button class="copy-btn" onclick="copyMoneroAddress()">📋 Copia indirizzo</button>
+    </div>
+</div>
+<script src="script.js"></script>
+<script>
+    function copyAffiliateLink() { navigator.clipboard.writeText(document.getElementById('affiliateLink').innerText); alert('Link copiato!'); }
+    function copyMoneroAddress() { navigator.clipboard.writeText(document.getElementById('moneroAddress').innerText); alert('Indirizzo Monero copiato!'); }
+</script>
+</body>
+</html>
