@@ -9,6 +9,12 @@
 </head>
 <body>
 
+<!-- Cookie Banner -->
+<div id="cookieBanner" class="cookie-banner" style="display: none;">
+    <p>🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando "Accetta", acconsenti all'uso dei cookie. <a href="privacy.html">Scopri di più</a></p>
+    <button id="acceptCookies" class="btn btn-primary">Accetta</button>
+</div>
+
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo" data-key="site_name">🛒 MarketHub</div>
@@ -88,7 +94,12 @@
 
 <div id="subscriptionModal" class="modal"><div class="modal-content"><span class="close" onclick="closeSubscriptionModal()">&times;</span><h2 data-key="subscription_title">Abbonamento Venditore - €9,90</h2><p data-key="payment_choice">Paga in crypto con NOWPayments:</p><div id="subPaymentOptions" class="payment-methods"></div></div></div>
 
-<footer><div class="container"><p>&copy; 2025 MarketHub - <span data-key="footer_payments">Il marketplace globale per prodotti fisici</span></p></div></footer>
+<footer>
+    <div class="container">
+        <p>&copy; 2025 MarketHub - <span data-key="footer_payments">Il marketplace globale per prodotti fisici</span></p>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Termini di Servizio</a></p>
+    </div>
+</footer>
 
 <script src="script.js"></script>
 </body>
