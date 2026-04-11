@@ -192,6 +192,17 @@ body {
     transform: translateY(-3px);
 }
 
+.btn-danger {
+    background: #ef4444;
+    color: white;
+    border: none;
+}
+
+.btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+}
+
 .stats {
     padding: 4rem 2rem;
     background: rgba(15, 23, 42, 0.6);
@@ -496,6 +507,7 @@ body {
     gap: 1rem;
     justify-content: center;
     margin-bottom: 2rem;
+    flex-wrap: wrap;
 }
 
 .recent-products h2 {
@@ -834,6 +846,34 @@ body {
     flex-wrap: wrap;
 }
 
+/* Cookie Banner */
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1e293b;
+    color: #f1f5f9;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    z-index: 1000;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.cookie-banner p {
+    margin: 0;
+    flex: 1;
+}
+
+.cookie-banner a {
+    color: #f97316;
+}
+
 footer {
     background: #0f172a;
     color: #94a3b8;
@@ -841,6 +881,15 @@ footer {
     padding: 2rem;
     margin-top: 3rem;
     border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+footer a {
+    color: #f97316;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
 
 @media (max-width: 768px) {
@@ -851,4 +900,5 @@ footer {
     .features-grid { grid-template-columns: 1fr; }
     .pricing-grid { grid-template-columns: 1fr; }
     .products-grid { grid-template-columns: 1fr; }
+    .cookie-banner { flex-direction: column; text-align: center; }
 }
