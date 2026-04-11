@@ -107,6 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.location.pathname.includes('products.html')) displayAllProducts();
     if (window.location.pathname.includes('messages.html')) displayConversations();
     if (window.location.pathname.includes('upload-product.html')) setupUploadForm();
+    
+    // Cookie banner
+    checkCookieConsent();
+    const acceptBtn = document.getElementById('acceptCookies');
+    if (acceptBtn) acceptBtn.addEventListener('click', acceptCookies);
 
     const loginForm = document.getElementById('loginForm');
     if (loginForm) loginForm.addEventListener('submit', (e) => {
@@ -304,4 +309,54 @@ function sendMessage() {
     document.getElementById('messageText').value = '';
     loadChat(currentChatWith.email, currentChatWith.name);
     displayConversations();
+}
+
+// ==================== COOKIE BANNER ==================
+function checkCookieConsent() {
+    const consent = localStorage.getItem('cookieConsent');
+    if (!consent) {
+        const banner = document.getElementById('cookieBanner');
+        if (banner) banner.style.display = 'flex';
+    }
+}
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'true');
+    const banner = document.getElementById('cookieBanner');
+    if (banner) banner.style.display = 'none';
+}
+
+// ==================== DELETE ACCOUNT (GDPR) ==================
+function deleteAccount() {
+    if (!currentUser) {
+        alert('Devi essere loggato per eliminare l\'account.');
+        return;
+    }
+    if (confirm("⚠️ Sei sicuro? Questa azione cancellerà PERMANENTEMENTE il tuo account, tutti i tuoi prodotti e tutti i messaggi. Non potrai più recuperarli.")) {
+        if (confirm("Questa operazione è IRREVERSIBILE. Vuoi davvero procedere?")) {
+            // 1. Rimuovi prodotti
+            products = products.filter(p => p.sellerEmail !== currentUser.email);
+            saveProducts();
+            
+            // 2. Rimuovi messaggi
+            messages = messages.filter(m => m.from !== currentUser.email && m.to !== currentUser.email);
+            saveMessages();
+            
+            // 3. Rimuovi utente dalla lista users
+            let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
+            users = users.filter(u => u.email !== currentUser.email);
+            localStorage.setItem('markethubUsers', JSON.stringify(users));
+            
+            // 4. Rimuovi abbonamento
+            let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
+            delete subscriptions[currentUser.email];
+            localStorage.setItem('markethubSubscriptions', JSON.stringify(subscriptions));
+            
+            // 5. Rimuovi la sessione corrente
+            localStorage.removeItem('markethubUser');
+            currentUser = null;
+            
+            alert("✅ Account eliminato con successo. Grazie per aver utilizzato MarketHub.");
+            window.location.href = 'index.html';
+        }
+    }
 }
