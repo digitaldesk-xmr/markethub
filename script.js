@@ -1,3 +1,6 @@
+/* WATERMARK: MarketHub - Copyright (c) 2025 ops.channel@proton.me - MIT License */
+/* Beacon ID: 7r1gqp1T5p-MarketHub-2025-04-11 */
+
 // ==================== MULTILINGUA ==================
 const translations = {
     it: {
@@ -43,6 +46,32 @@ const translations = {
 let currentLang = localStorage.getItem('markethubLang') || 'it';
 function setLanguage(lang) { currentLang = lang; localStorage.setItem('markethubLang', lang); translatePage(); }
 function translatePage() { document.querySelectorAll('[data-key]').forEach(el => { let key = el.getAttribute('data-key'); if (translations[currentLang] && translations[currentLang][key]) { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = translations[currentLang][key]; else el.innerHTML = translations[currentLang][key]; } }); }
+
+// ==================== BEACON TRACKER (anti-clone) ==================
+const ORIGINAL_DOMAIN = "digitaldesk-xmr.github.io"; // IL TUO DOMINIO ORIGINALE (senza https://)
+const TELEGRAM_BOT_TOKEN = "123456:ABCdefGHIjklmNOPqrstuVWXyz"; // SOSTITUISCI CON IL TUO TOKEN
+const TELEGRAM_CHAT_ID = "123456789"; // SOSTITUISCI CON IL TUO CHAT_ID
+
+function sendBeaconAlert(message) {
+    if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === "123456:ABCdefGHIjklmNOPqrstuVWXyz") return;
+    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+    fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
+    }).catch(e => console.log("Beacon error:", e));
+}
+
+function checkClone() {
+    const currentHost = window.location.hostname;
+    if (currentHost !== ORIGINAL_DOMAIN && !currentHost.includes("localhost") && !currentHost.includes("127.0.0.1")) {
+        const alertMsg = `⚠️ POTENZIALE CLONE DETECTED!\nOriginale: ${ORIGINAL_DOMAIN}\nClone: ${currentHost}\nURL: ${window.location.href}\nUser-Agent: ${navigator.userAgent}`;
+        console.warn(alertMsg);
+        sendBeaconAlert(alertMsg);
+        // Opzionale: mostra avviso all'utente (solo su clone)
+        // document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:10px;text-align:center;">⚠️ Questo sito non è l\'originale MarketHub. Visita il sito ufficiale: https://digitaldesk-xmr.github.io/markethub/</div>');
+    }
+}
 
 // ==================== DATABASE ==================
 let products = [], messages = [], currentUser = null;
@@ -112,6 +141,9 @@ document.addEventListener('DOMContentLoaded', () => {
     checkCookieConsent();
     const acceptBtn = document.getElementById('acceptCookies');
     if (acceptBtn) acceptBtn.addEventListener('click', acceptCookies);
+    
+    // Beacon anti-clone
+    checkClone();
 
     const loginForm = document.getElementById('loginForm');
     if (loginForm) loginForm.addEventListener('submit', (e) => {
@@ -336,25 +368,20 @@ function deleteAccount() {
             // 1. Rimuovi prodotti
             products = products.filter(p => p.sellerEmail !== currentUser.email);
             saveProducts();
-            
             // 2. Rimuovi messaggi
             messages = messages.filter(m => m.from !== currentUser.email && m.to !== currentUser.email);
             saveMessages();
-            
             // 3. Rimuovi utente dalla lista users
             let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
             users = users.filter(u => u.email !== currentUser.email);
             localStorage.setItem('markethubUsers', JSON.stringify(users));
-            
             // 4. Rimuovi abbonamento
             let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
             delete subscriptions[currentUser.email];
             localStorage.setItem('markethubSubscriptions', JSON.stringify(subscriptions));
-            
             // 5. Rimuovi la sessione corrente
             localStorage.removeItem('markethubUser');
             currentUser = null;
-            
             alert("✅ Account eliminato con successo. Grazie per aver utilizzato MarketHub.");
             window.location.href = 'index.html';
         }
