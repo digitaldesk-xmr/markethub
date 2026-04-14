@@ -20,7 +20,11 @@ const translations = {
         password_label: "Password", name_label: "Nome completo", confirm_label: "Conferma password",
         login_btn: "Accedi", register_btn: "Registrati", no_account: "Non hai un account?", have_account: "Hai già un account?",
         register_link: "Registrati", login_link: "Accedi", subscription_title: "Abbonamento Venditore - €9,90",
-        payment_choice: "Paga in crypto con NOWPayments:", footer_payments: "Il marketplace globale per prodotti fisici"
+        payment_choice: "Paga in crypto con NOWPayments:", footer_payments: "Il marketplace globale per prodotti fisici",
+        // Cookie banner
+        cookie_text: "🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando \"Accetta\", acconsenti all'uso dei cookie.",
+        cookie_link: "Scopri di più",
+        cookie_accept: "Accetta"
     },
     en: {
         site_name: "🛒 MarketHub", nav_home: "Home", nav_products: "Products", nav_dashboard: "Dashboard",
@@ -39,7 +43,11 @@ const translations = {
         password_label: "Password", name_label: "Full name", confirm_label: "Confirm password",
         login_btn: "Login", register_btn: "Sign up", no_account: "Don't have an account?", have_account: "Already have an account?",
         register_link: "Sign up", login_link: "Login", subscription_title: "Seller Subscription - €9.90",
-        payment_choice: "Pay with crypto via NOWPayments:", footer_payments: "The global marketplace for physical products"
+        payment_choice: "Pay with crypto via NOWPayments:", footer_payments: "The global marketplace for physical products",
+        // Cookie banner
+        cookie_text: "🍪 We use essential technical cookies for the site to function. We do not use profiling cookies. By clicking 'Accept', you consent to the use of cookies.",
+        cookie_link: "Learn more",
+        cookie_accept: "Accept"
     }
 };
 
@@ -48,9 +56,9 @@ function setLanguage(lang) { currentLang = lang; localStorage.setItem('markethub
 function translatePage() { document.querySelectorAll('[data-key]').forEach(el => { let key = el.getAttribute('data-key'); if (translations[currentLang] && translations[currentLang][key]) { if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = translations[currentLang][key]; else el.innerHTML = translations[currentLang][key]; } }); }
 
 // ==================== BEACON TRACKER (anti-clone) ==================
-const ORIGINAL_DOMAIN = "digitaldesk-xmr.github.io"; // IL TUO DOMINIO ORIGINALE (senza https://)
-const TELEGRAM_BOT_TOKEN = "123456:ABCdefGHIjklmNOPqrstuVWXyz"; // SOSTITUISCI CON IL TUO TOKEN
-const TELEGRAM_CHAT_ID = "123456789"; // SOSTITUISCI CON IL TUO CHAT_ID
+const ORIGINAL_DOMAIN = "digitaldesk-xmr.github.io";
+const TELEGRAM_BOT_TOKEN = "123456:ABCdefGHIjklmNOPqrstuVWXyz";
+const TELEGRAM_CHAT_ID = "123456789";
 
 function sendBeaconAlert(message) {
     if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === "123456:ABCdefGHIjklmNOPqrstuVWXyz") return;
@@ -68,8 +76,6 @@ function checkClone() {
         const alertMsg = `⚠️ POTENZIALE CLONE DETECTED!\nOriginale: ${ORIGINAL_DOMAIN}\nClone: ${currentHost}\nURL: ${window.location.href}\nUser-Agent: ${navigator.userAgent}`;
         console.warn(alertMsg);
         sendBeaconAlert(alertMsg);
-        // Opzionale: mostra avviso all'utente (solo su clone)
-        // document.body.insertAdjacentHTML('afterbegin', '<div style="background:red;color:white;padding:10px;text-align:center;">⚠️ Questo sito non è l\'originale MarketHub. Visita il sito ufficiale: https://digitaldesk-xmr.github.io/markethub/</div>');
     }
 }
 
@@ -365,21 +371,16 @@ function deleteAccount() {
     }
     if (confirm("⚠️ Sei sicuro? Questa azione cancellerà PERMANENTEMENTE il tuo account, tutti i tuoi prodotti e tutti i messaggi. Non potrai più recuperarli.")) {
         if (confirm("Questa operazione è IRREVERSIBILE. Vuoi davvero procedere?")) {
-            // 1. Rimuovi prodotti
             products = products.filter(p => p.sellerEmail !== currentUser.email);
             saveProducts();
-            // 2. Rimuovi messaggi
             messages = messages.filter(m => m.from !== currentUser.email && m.to !== currentUser.email);
             saveMessages();
-            // 3. Rimuovi utente dalla lista users
             let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
             users = users.filter(u => u.email !== currentUser.email);
             localStorage.setItem('markethubUsers', JSON.stringify(users));
-            // 4. Rimuovi abbonamento
             let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
             delete subscriptions[currentUser.email];
             localStorage.setItem('markethubSubscriptions', JSON.stringify(subscriptions));
-            // 5. Rimuovi la sessione corrente
             localStorage.removeItem('markethubUser');
             currentUser = null;
             alert("✅ Account eliminato con successo. Grazie per aver utilizzato MarketHub.");
