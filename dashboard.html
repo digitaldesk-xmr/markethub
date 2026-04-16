@@ -12,42 +12,48 @@
     <div class="nav-container">
         <div class="logo">🛒 MarketHub</div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Prodotti</a>
-            <a href="dashboard.html">Dashboard</a>
+            <a href="index.html" data-key="nav_home">Home</a>
+            <a href="products.html" data-key="nav_products">Prodotti</a>
+            <a href="dashboard.html" data-key="nav_dashboard">Dashboard</a>
             <a href="exchange.html">Exchange</a>
-            <a href="messages.html">Messaggi</a>
-            <a href="upload-product.html">Carica</a>
+            <a href="messages.html" data-key="nav_messages">Messaggi</a>
+            <a href="upload-product.html" data-key="nav_upload">Carica</a>
             <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
-            <a href="#" onclick="logout()">Esci</a>
+            <a href="#" onclick="logout()" data-key="nav_logout">Esci</a>
         </div>
     </div>
 </nav>
 <div class="dashboard-container">
     <div class="dashboard-header">
-        <h1>Ciao, <span id="userName"></span>! 👋</h1>
+        <h1><span data-key="dashboard_welcome">Ciao</span>, <span id="userName"></span>! 👋</h1>
         <div id="subscriptionStatus" class="subscription-status"></div>
     </div>
     <div class="stats-grid">
-        <div class="stat-card"><div class="stat-number" id="totalProducts">0</div><div class="stat-label">Prodotti in vendita</div></div>
-        <div class="stat-card"><div class="stat-number" id="totalSales">0</div><div class="stat-label">Vendite totali</div></div>
-        <div class="stat-card"><div class="stat-number" id="totalRevenue">€0</div><div class="stat-label">Guadagno totale</div></div>
-        <div class="stat-card"><div class="stat-number" id="totalViews">0</div><div class="stat-label">Visualizzazioni</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalProducts">0</div><div class="stat-label" data-key="stat_products">Prodotti in vendita</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalSales">0</div><div class="stat-label" data-key="stat_sales">Vendite totali</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalRevenue">€0</div><div class="stat-label" data-key="stat_revenue">Guadagno totale</div></div>
+        <div class="stat-card"><div class="stat-number" id="totalViews">0</div><div class="stat-label" data-key="stat_views">Visualizzazioni</div></div>
     </div>
     <div class="dashboard-actions">
-        <button class="btn btn-primary" onclick="window.location.href='upload-product.html'">➕ Nuovo prodotto</button>
-        <button class="btn btn-secondary" onclick="window.location.href='products.html'">👁️ I tuoi prodotti</button>
-        <button class="btn btn-danger" onclick="deleteAccount()">🗑️ Elimina il mio account</button>
+        <button class="btn btn-primary" onclick="window.location.href='upload-product.html'">➕ <span data-key="new_product">Nuovo prodotto</span></button>
+        <button class="btn btn-secondary" onclick="window.location.href='products.html'">👁️ <span data-key="my_products">I tuoi prodotti</span></button>
+        <button class="btn btn-danger" onclick="deleteAccount()">🗑️ <span data-key="delete_account">Elimina il mio account</span></button>
     </div>
-    <div class="recent-products"><h2>I tuoi ultimi prodotti</h2><div id="recentProductsList" class="products-grid"></div></div>
+    <div class="recent-products"><h2 data-key="recent_products">I tuoi ultimi prodotti</h2><div id="recentProductsList" class="products-grid"></div></div>
+    
+    <!-- Sezione recensioni ricevute -->
+    <div class="reviews-section" style="margin-top: 2rem;">
+        <h2 data-key="reviews_received">📝 Recensioni ricevute</h2>
+        <div id="sellerReviewsList"></div>
+    </div>
 </div>
 
 <!-- Modale per abbonamento -->
 <div id="subscriptionModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeSubscriptionModal()">&times;</span>
-        <h2>Abbonamento Venditore - €9,90</h2>
-        <p>Paga in crypto con NOWPayments:</p>
+        <h2 data-key="subscription_title">Abbonamento Venditore - €9,90</h2>
+        <p data-key="payment_choice">Paga in crypto con NOWPayments:</p>
         <div id="subPaymentOptions" class="payment-methods"></div>
     </div>
 </div>
