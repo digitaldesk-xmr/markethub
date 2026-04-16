@@ -15,6 +15,7 @@ body {
     min-height: 100vh;
 }
 
+/* Navbar */
 .navbar {
     background: rgba(15, 23, 42, 0.95);
     backdrop-filter: blur(12px);
@@ -117,6 +118,22 @@ body {
     box-shadow: 0 5px 15px rgba(249,115,22,0.4);
 }
 
+.btn-small {
+    background: #f97316;
+    color: white;
+    border: none;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-small:hover {
+    background: #ec4899;
+    transform: translateY(-1px);
+}
+
+/* Hero */
 .hero {
     background: radial-gradient(circle at 20% 30%, rgba(249,115,22,0.15), transparent 50%),
                 linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
@@ -164,6 +181,7 @@ body {
     flex-wrap: wrap;
 }
 
+/* Buttons */
 .btn {
     padding: 0.9rem 2.2rem;
     border-radius: 50px;
@@ -206,6 +224,7 @@ body {
     transform: translateY(-2px);
 }
 
+/* Stats */
 .stats {
     padding: 4rem 2rem;
     background: rgba(15, 23, 42, 0.6);
@@ -236,6 +255,7 @@ body {
     margin-top: 0.5rem;
 }
 
+/* Features */
 .features {
     padding: 6rem 2rem;
     background: linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%);
@@ -295,6 +315,7 @@ body {
     font-size: 0.9rem;
 }
 
+/* Pricing */
 .pricing {
     padding: 6rem 2rem;
     background: radial-gradient(circle at 80% 20%, rgba(249,115,22,0.1), transparent 60%),
@@ -373,6 +394,7 @@ body {
     color: #cbd5e1;
 }
 
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -419,6 +441,7 @@ body {
     color: #f97316;
 }
 
+/* Form */
 .form-group {
     margin-bottom: 1.2rem;
 }
@@ -453,6 +476,7 @@ body {
     gap: 1rem;
 }
 
+/* Dashboard */
 .dashboard-container, .products-container, .upload-container, .messages-container {
     max-width: 1280px;
     margin: 2rem auto;
@@ -518,6 +542,12 @@ body {
     margin-bottom: 1.5rem;
 }
 
+.reviews-section h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+/* Products */
 .products-header {
     background: rgba(255,255,255,0.05);
     backdrop-filter: blur(10px);
@@ -604,6 +634,7 @@ body {
     margin-top: 0.5rem;
 }
 
+/* Upload */
 .upload-container {
     max-width: 800px;
 }
@@ -637,6 +668,7 @@ body {
     border: 1px solid rgba(255,255,255,0.2);
 }
 
+/* Subscription status */
 .subscription-status {
     margin-top: 1rem;
     padding: 0.75rem 1.5rem;
@@ -657,6 +689,7 @@ body {
     border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
+/* Alert */
 .alert {
     padding: 1rem;
     border-radius: 16px;
@@ -678,6 +711,7 @@ body {
     display: block;
 }
 
+/* Messages */
 .messages-container {
     max-width: 1280px;
     margin: 2rem auto;
@@ -877,6 +911,7 @@ body {
     color: #f97316;
 }
 
+/* Footer */
 footer {
     background: #0f172a;
     color: #94a3b8;
@@ -895,6 +930,7 @@ footer a:hover {
     text-decoration: underline;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
     .hero h1 { font-size: 2rem; }
     .messages-layout { grid-template-columns: 1fr; }
