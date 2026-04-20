@@ -1,6 +1,32 @@
 /* WATERMARK: MarketHub - Copyright (c) 2025 ops.channel@proton.me - MIT License */
 /* Beacon ID: 7r1gqp1T5p-MarketHub-2025-04-11 */
 
+// ========== TRACCIAMENTO AFFILIATO ==========
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value}; path=/; expires=${date.toUTCString()}; SameSite=Lax`;
+}
+
+function trackAffiliate() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    if (ref) {
+        setCookie('affiliate_ref', ref, 30);
+        // Pulisci l'URL (opzionale)
+        window.history.replaceState({}, document.title, window.location.pathname);
+        console.log('Affiliate tracciato:', ref);
+    }
+}
+trackAffiliate();
+
 // ==================== MULTILINGUA COMPLETO ==================
 const translations = {
     it: {
@@ -63,15 +89,6 @@ const translations = {
         cat_collectibles: "Collezionismo",
         cat_other: "Altro",
         no_products: "Nessun prodotto in vendita.",
-        exchange_title: "💰 Crypto Exchange",
-        exchange_sub: "Scambia criptovalute in modo semplice, veloce e sicuro con Trocador",
-        widget_title: "📊 Widget Exchange",
-        footer_payments: "Il marketplace globale per prodotti fisici",
-        footer_privacy: "Privacy",
-        footer_terms: "Termini",
-        cookie_text: "🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando \"Accetta\", acconsenti all'uso dei cookie.",
-        cookie_link: "Scopri di più",
-        cookie_accept: "Accetta",
         alert_login_required: "Devi prima accedere",
         alert_login_success: "Login effettuato!",
         alert_invalid_credentials: "Credenziali errate",
@@ -112,7 +129,12 @@ const translations = {
         no_conversations: "Nessuna conversazione",
         chat_with: "💬 Chat con",
         type_message: "Scrivi un messaggio...",
-        send: "Invia"
+        send: "Invia",
+        cookie_text: "🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando \"Accetta\", acconsenti all'uso dei cookie.",
+        cookie_link: "Scopri di più",
+        cookie_accept: "Accetta",
+        affiliate_link_label: "🔗 Il tuo link di affiliazione (condividi per guadagnare):",
+        affiliate_copy: "Copia link"
     },
     en: {
         site_name: "🛒 MarketHub",
@@ -123,25 +145,25 @@ const translations = {
         nav_upload: "Upload",
         nav_logout: "Logout",
         btn_login: "Login",
-        btn_register: "Sign up",
+        btn_register: "Sign Up",
         hero_title: "Sell your products worldwide",
-        hero_sub: "MarketHub is the global marketplace for physical products.",
-        hero_start: "Start selling",
-        hero_browse: "Browse products",
-        stat_sellers: "Active sellers",
-        stat_products: "Products sold",
-        stat_countries: "Countries reached",
+        hero_sub: "MarketHub is the marketplace where anyone can sell physical products.",
+        hero_start: "Start Selling",
+        hero_browse: "Browse Products",
+        stat_sellers: "Active Sellers",
+        stat_products: "Products Sold",
+        stat_countries: "Countries Reached",
         features_title: "Why choose MarketHub",
-        feat1_title: "Flexible payments",
+        feat1_title: "Flexible Payments",
         feat1_desc: "Bitcoin, Ethereum, USDT and 300+ cryptos",
-        feat2_title: "Global selling",
+        feat2_title: "Global Selling",
         feat2_desc: "Reach buyers in 120+ countries",
-        feat3_title: "Physical products",
+        feat3_title: "Physical Products",
         feat3_desc: "Electronics, fashion, furniture",
-        feat4_title: "Purchase protection",
+        feat4_title: "Purchase Protection",
         feat4_desc: "Verified reviews",
         pricing_title: "Become a seller",
-        popular_badge: "🔥 Best seller",
+        popular_badge: "🔥 Best Seller",
         plan_name: "Seller Plan",
         plan_duration: "/30 days",
         feature_unlimited: "✓ Unlimited products",
@@ -149,24 +171,24 @@ const translations = {
         feature_messages: "✓ Integrated messaging",
         feature_stats: "✓ Sales statistics",
         feature_support: "✓ Priority support",
-        btn_activate: "Activate now",
+        btn_activate: "Activate Now",
         login_title: "Login",
-        register_title: "Sign up",
+        register_title: "Sign Up",
         email_label: "Email",
         password_label: "Password",
-        name_label: "Full name",
-        confirm_label: "Confirm password",
+        name_label: "Full Name",
+        confirm_label: "Confirm Password",
         login_btn: "Login",
-        register_btn: "Sign up",
+        register_btn: "Sign Up",
         no_account: "Don't have an account?",
         have_account: "Already have an account?",
-        register_link: "Sign up",
+        register_link: "Sign Up",
         login_link: "Login",
         subscription_title: "Seller Subscription - €9.90",
         payment_choice: "Pay with crypto via NOWPayments:",
-        all_products_title: "All products",
+        all_products_title: "All Products",
         search_placeholder: "🔍 Search products...",
-        all_categories: "All categories",
+        all_categories: "All Categories",
         cat_electronics: "Electronics",
         cat_clothing: "Clothing",
         cat_home: "Home & Furniture",
@@ -174,15 +196,6 @@ const translations = {
         cat_collectibles: "Collectibles",
         cat_other: "Other",
         no_products: "No products for sale.",
-        exchange_title: "💰 Crypto Exchange",
-        exchange_sub: "Swap cryptocurrencies easily, fast and securely with Trocador",
-        widget_title: "📊 Exchange Widget",
-        footer_payments: "The global marketplace for physical products",
-        footer_privacy: "Privacy",
-        footer_terms: "Terms",
-        cookie_text: "🍪 We use essential technical cookies for the site to function. We do not use profiling cookies. By clicking 'Accept', you consent to the use of cookies.",
-        cookie_link: "Learn more",
-        cookie_accept: "Accept",
         alert_login_required: "You must be logged in first",
         alert_login_success: "Login successful!",
         alert_invalid_credentials: "Invalid credentials",
@@ -206,24 +219,29 @@ const translations = {
         no_active_subscription: "⚠️ No active subscription.",
         activate_now: "Activate now €9.90",
         no_products_yet: "No products yet. <a href=\"upload-product.html\">Upload your first product</a>",
-        reviews_received: "📝 Reviews received",
+        reviews_received: "📝 Reviews Received",
         no_reviews: "No reviews received yet.",
         seller: "Seller",
         ships_from: "Ships from",
         stock: "Stock",
         views: "Views",
         buy_with_crypto: "💰 Buy with Crypto",
-        contact_seller: "💬 Contact seller",
+        contact_seller: "💬 Contact Seller",
         no_reviews_yet: "⭐ No reviews yet",
         leave_review: "Leave a review",
         your_comment: "Your comment...",
-        submit_review: "Submit review",
+        submit_review: "Submit Review",
         seller_reply: "Seller reply:",
         reply: "Reply",
         no_conversations: "No conversations yet",
         chat_with: "💬 Chat with",
         type_message: "Type a message...",
-        send: "Send"
+        send: "Send",
+        cookie_text: "🍪 We use essential technical cookies for the site to function. We do not use profiling cookies. By clicking 'Accept', you consent to the use of cookies.",
+        cookie_link: "Learn more",
+        cookie_accept: "Accept",
+        affiliate_link_label: "🔗 Your affiliate link (share to earn):",
+        affiliate_copy: "Copy link"
     }
 };
 
@@ -232,7 +250,6 @@ function setLanguage(lang) {
     currentLang = lang;
     localStorage.setItem('markethubLang', lang);
     translatePage();
-    // Non ricaricare la pagina, basta tradurre
 }
 function translatePage() {
     document.querySelectorAll('[data-key]').forEach(el => {
@@ -247,6 +264,8 @@ function translatePage() {
     });
     document.documentElement.lang = currentLang;
 }
+
+function showAlertMessage(key) { alert(translations[currentLang][key]); }
 
 // ==================== BEACON TRACKER (anti-clone) ==================
 const ORIGINAL_DOMAIN = "digitaldesk-xmr.github.io";
@@ -281,7 +300,49 @@ function loadMessages() { let stored = localStorage.getItem('markethubMessages')
 function saveCurrentUser(user) { currentUser = user; localStorage.setItem('markethubUser', JSON.stringify(user)); }
 function loadCurrentUser() { let user = localStorage.getItem('markethubUser'); if (user) currentUser = JSON.parse(user); }
 
+// ==================== AFFILIATE FUNCTIONS ==================
+function getAffiliateLink(productId) {
+    const ref = getCookie('affiliate_ref');
+    if (!ref) return null;
+    const baseUrl = window.location.origin;
+    return `${baseUrl}/products.html?product=${productId}&ref=${ref}`;
+}
+
+async function finalizeOrder(orderData) {
+    const products = JSON.parse(localStorage.getItem('markethubProducts') || '[]');
+    const product = products.find(p => p.id == orderData.productId);
+    const affiliateProductId = product ? product.affiliateProductId : null;
+    const affiliateRef = getCookie('affiliate_ref');
+
+    try {
+        const response = await fetch('https://affiliate-program.vercel.app/api/markethub-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+                orderId: orderData.orderId,
+                orderAmount: orderData.totalAmount,
+                customerEmail: orderData.customerEmail,
+                productId: affiliateProductId,
+                affiliateRef: affiliateRef
+            })
+        });
+        const result = await response.json();
+        console.log('Risultato webhook:', result);
+        return result;
+    } catch (error) {
+        console.error('Errore webhook:', error);
+        return null;
+    }
+}
+
 // ==================== REVIEWS SYSTEM ==================
+function initProductReviews(productId) {
+    let p = products.find(p => p.id === productId);
+    if (p && !p.reviews) p.reviews = [];
+    saveProducts();
+}
+
 function addReview(productId, userId, userName, rating, comment) {
     let p = products.find(p => p.id === productId);
     if (!p) return false;
@@ -461,7 +522,7 @@ function loadDashboard() {
                 <div style="background:rgba(255,255,255,0.05); border-radius:16px; padding:1rem; margin-bottom:1rem;">
                     <strong>${translations[currentLang].all_products_title.slice(0,-1)}:</strong> ${rev.productName}<br>
                     <strong>${translations[currentLang].name_label}:</strong> ${rev.review.userName}<br>
-                    <strong>${translations[currentLang].rating}:</strong> ${'⭐'.repeat(rev.review.rating)}${'☆'.repeat(5-rev.review.rating)}<br>
+                    <strong>Voto:</strong> ${'⭐'.repeat(rev.review.rating)}${'☆'.repeat(5-rev.review.rating)}<br>
                     <strong>${translations[currentLang].your_comment}:</strong> ${rev.review.comment}<br>
                     <small>${new Date(rev.review.date).toLocaleDateString()}</small>
                     ${rev.review.reply ? `<div style="margin-top:0.5rem; padding-left:1rem; border-left:2px solid #f97316;"><strong>${translations[currentLang].seller_reply}</strong> ${rev.review.reply.text}<br><small>${new Date(rev.review.reply.date).toLocaleDateString()}</small></div>` : `<button class="btn-small" onclick="replyToReviewFromDashboard(${rev.productId}, ${rev.reviewIndex})">${translations[currentLang].reply}</button>`}
@@ -512,6 +573,7 @@ function setupUploadForm() {
             quantity: parseInt(document.getElementById('productQuantity').value),
             shippingFrom: document.getElementById('productShippingFrom')?.value || 'IT',
             shippingCost: parseFloat(document.getElementById('productShippingCost')?.value || 0),
+            affiliateProductId: document.getElementById('affiliateProductId')?.value || null,
             views: 0,
             reviews: [],
             date: new Date().toISOString()
@@ -623,6 +685,24 @@ function viewProduct(productId) {
         `;
     }
 
+    // Link affiliato
+    let affiliateHtml = '';
+    const affiliateRef = getCookie('affiliate_ref');
+    if (affiliateRef) {
+        const affiliateLink = getAffiliateLink(p.id);
+        if (affiliateLink) {
+            affiliateHtml = `
+                <div style="margin-top:1.5rem; padding:1rem; background:rgba(255,255,255,0.05); border-radius:16px;">
+                    <p><strong>${translations[currentLang].affiliate_link_label}</strong></p>
+                    <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                        <input type="text" id="affiliateLinkInput" value="${affiliateLink}" readonly style="flex:1; padding:0.5rem; border-radius:12px; background:#1e293b; color:#f1f5f9; border:1px solid #f97316;">
+                        <button class="btn-small" onclick="copyAffiliateLink()">${translations[currentLang].affiliate_copy}</button>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
     let modal = document.getElementById('productModal');
     document.getElementById('productDetail').innerHTML = `
         <div style="text-align:center">
@@ -637,6 +717,7 @@ function viewProduct(productId) {
                 <p>📦 ${translations[currentLang].stock}: ${p.quantity}</p>
                 <p>👁️ ${translations[currentLang].views}: ${p.views}</p>
             </div>
+            ${affiliateHtml}
             ${reviewsHtml}
             ${reviewFormHtml}
         </div>
@@ -646,6 +727,15 @@ function viewProduct(productId) {
         <button class="btn" onclick="contactSeller('${p.sellerEmail}','${p.seller}',${p.id},'${p.name}')">${translations[currentLang].contact_seller}</button>
     `;
     modal.classList.add('active');
+}
+
+function copyAffiliateLink() {
+    const input = document.getElementById('affiliateLinkInput');
+    if (input) {
+        input.select();
+        document.execCommand('copy');
+        alert(translations[currentLang].affiliate_copy + '!');
+    }
 }
 
 function submitReview(productId) {
@@ -674,8 +764,17 @@ function replyToReview(productId, reviewIndex) {
 }
 
 function closeProductModal() { document.getElementById('productModal').classList.remove('active'); }
+
 function buyWithCrypto(productId) {
     let p = products.find(p => p.id === productId);
+    // Simula un ordine e invia al webhook
+    const orderData = {
+        orderId: 'ORD-' + Date.now(),
+        totalAmount: p.price,
+        customerEmail: currentUser ? currentUser.email : 'guest@example.com',
+        productId: p.id
+    };
+    finalizeOrder(orderData);
     alert(`${translations[currentLang].buy_with_crypto}: ${p.name} - €${p.price}. ${translations[currentLang].contact_seller.toLowerCase()} ${p.seller}.`);
 }
 
@@ -689,6 +788,7 @@ function contactSeller(sellerEmail, sellerName, productId, productName) {
         alert(translations[currentLang].alert_message_sent);
     }
 }
+
 function getUserConversations() {
     if (!currentUser) return [];
     let userMessages = messages.filter(m => m.from === currentUser.email || m.to === currentUser.email);
@@ -704,6 +804,7 @@ function getUserConversations() {
     });
     return Array.from(map.values()).sort((a,b)=>new Date(b.lastTimestamp)-new Date(a.lastTimestamp));
 }
+
 function displayConversations() {
     let container = document.getElementById('conversationsList');
     if (!container) return;
@@ -711,6 +812,7 @@ function displayConversations() {
     if (convs.length === 0) { container.innerHTML = `<p>${translations[currentLang].no_conversations}</p>`; return; }
     container.innerHTML = convs.map(c => `<div class="conversation-item" onclick="loadChat('${c.userEmail}','${c.userName}')"><div class="conversation-name">${c.userName}</div><div class="conversation-last">${c.lastMessage.substring(0,50)}...</div><div class="conversation-product">📦 ${c.productName}</div>${c.unread ? '<span class="unread-badge">' + (currentLang === 'it' ? 'Nuovo' : 'New') + '</span>' : ''}</div>`).join('');
 }
+
 let currentChatWith = null;
 function loadChat(userEmail, userName) {
     currentChatWith = { email: userEmail, name: userName };
@@ -723,6 +825,7 @@ function loadChat(userEmail, userName) {
     container.innerHTML = chatMsgs.map(m => `<div class="chat-message ${m.from === currentUser.email ? 'sent' : 'received'}"><div class="message-text">${m.message}</div><div class="message-time">${new Date(m.timestamp).toLocaleString()}</div>${m.productName ? `<div class="message-product">📦 ${currentLang === 'it' ? 'Prodotto' : 'Product'}: ${m.productName}</div>` : ''}</div>`).join('');
     container.scrollTop = container.scrollHeight;
 }
+
 function sendMessage() {
     let text = document.getElementById('messageText').value;
     if (!text.trim() || !currentChatWith) return;
