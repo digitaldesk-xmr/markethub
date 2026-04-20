@@ -11,7 +11,7 @@
 <!-- WATERMARK: MarketHub - Copyright (c) 2025 ops.channel@proton.me - MIT License -->
 <!-- UniqueID: 7r1gqp1T5p-MarketHub-2025-04-11 -->
 
-<!-- Cookie Banner (multilingua) -->
+<!-- Cookie Banner -->
 <div id="cookieBanner" class="cookie-banner" style="display: none;">
     <p data-key="cookie_text">🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando "Accetta", acconsenti all'uso dei cookie. <a href="privacy.html" data-key="cookie_link">Scopri di più</a></p>
     <button id="acceptCookies" class="btn btn-primary" data-key="cookie_accept">Accetta</button>
@@ -23,14 +23,17 @@
         <div class="nav-links">
             <a href="index.html" data-key="nav_home">Home</a>
             <a href="products.html" data-key="nav_products">Prodotti</a>
-            <a href="dashboard.html" data-key="nav_dashboard">Dashboard</a>
+            <a href="dashboard.html" id="dashboardLink" style="display:none;" data-key="nav_dashboard">Dashboard</a>
+            <a href="upload-product.html" id="uploadLink" style="display:none;" data-key="nav_upload">Carica</a>
             <a href="exchange.html">Exchange</a>
+            <a href="messages.html" id="messagesLink" style="display:none;" data-key="nav_messages">Messaggi</a>
             <div class="lang-switch">
                 <button class="lang-btn" onclick="setLanguage('it')">🇮🇹 IT</button>
                 <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
             </div>
-            <button class="btn-outline" onclick="showLogin()" data-key="btn_login">Accedi</button>
-            <button class="btn-primary-small" onclick="showRegister()" data-key="btn_register">Registrati</button>
+            <button class="btn-outline" onclick="showLogin()" id="loginBtn" data-key="btn_login">Accedi</button>
+            <button class="btn-primary-small" onclick="showRegister()" id="registerBtn" data-key="btn_register">Registrati</button>
+            <a href="#" onclick="logout()" id="logoutLink" style="display:none;" data-key="nav_logout">Esci</a>
         </div>
     </div>
 </nav>
@@ -60,7 +63,7 @@
     <div class="container">
         <h2 data-key="features_title">Perché scegliere MarketHub</h2>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">💳</div><h3 data-key="feat1_title">Pagamenti flessibili</h3><p data-key="feat1_desc">Bitcoin, Ethereum, USDT e 300+ criptovalute</p></div>
+            <div class="feature-card"><div class="feature-icon">💳</div><h3 data-key="feat1_title">Pagamenti flessibili</h3><p data-key="feat1_desc">Bitcoin, Ethereum, USDT e 300+ crypto</p></div>
             <div class="feature-card"><div class="feature-icon">🌍</div><h3 data-key="feat2_title">Vendita globale</h3><p data-key="feat2_desc">Raggiungi compratori in 120+ paesi</p></div>
             <div class="feature-card"><div class="feature-icon">📦</div><h3 data-key="feat3_title">Prodotti fisici</h3><p data-key="feat3_desc">Elettronica, moda, arredamento, collezionismo</p></div>
             <div class="feature-card"><div class="feature-icon">🛡️</div><h3 data-key="feat4_title">Protezione acquisti</h3><p data-key="feat4_desc">Recensioni verificate e assistenza clienti</p></div>
@@ -99,7 +102,7 @@
 <footer>
     <div class="container">
         <p>&copy; 2025 MarketHub - <span data-key="footer_payments">Il marketplace globale per prodotti fisici</span></p>
-        <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Termini di Servizio</a></p>
+        <p><a href="privacy.html" data-key="footer_privacy">Privacy</a> | <a href="terms.html" data-key="footer_terms">Termini</a></p>
     </div>
 </footer>
 
