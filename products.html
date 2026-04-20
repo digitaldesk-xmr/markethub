@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prodotti - MarketHub</title>
+    <title>Carica prodotto - MarketHub</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
@@ -23,25 +23,33 @@
         </div>
     </div>
 </nav>
-<div class="products-container">
-    <div class="products-header">
-        <h1 data-key="all_products_title">Tutti i prodotti</h1>
-        <div class="filters">
-            <input type="text" id="searchInput" data-key="search_placeholder" placeholder="🔍 Cerca prodotti..." onkeyup="filterProducts()">
-            <select id="categoryFilter" onchange="filterProducts()">
-                <option value="all" data-key="all_categories">Tutte le categorie</option>
-                <option value="Elettronica" data-key="cat_electronics">Elettronica</option>
-                <option value="Abbigliamento" data-key="cat_clothing">Abbigliamento</option>
-                <option value="Casa" data-key="cat_home">Casa e Arredamento</option>
-                <option value="Sport" data-key="cat_sport">Sport</option>
-                <option value="Collezionismo" data-key="cat_collectibles">Collezionismo</option>
-                <option value="Altro" data-key="cat_other">Altro</option>
-            </select>
+<div class="upload-container">
+    <h1>Carica un nuovo prodotto</h1>
+    <p>Inserisci i dettagli del prodotto per venderlo in tutto il mondo</p>
+    <form id="uploadProductForm" class="upload-form" enctype="multipart/form-data">
+        <div class="form-group"><label>Foto prodotto *</label><input type="file" id="productImageFile" accept="image/*" required><div id="imagePreview" class="image-preview"></div></div>
+        <div class="form-group"><label>Nome prodotto *</label><input type="text" id="productName" required placeholder="Es. iPhone 14 Pro"></div>
+        <div class="form-group"><label>Descrizione *</label><textarea id="productDescription" rows="4" required placeholder="Descrivi il prodotto in dettaglio..."></textarea></div>
+        <div class="form-row">
+            <div class="form-group"><label>Prezzo (€) *</label><input type="number" id="productPrice" step="0.01" required></div>
+            <div class="form-group"><label>Categoria *</label><select id="productCategory" required><option>Elettronica</option><option>Abbigliamento</option><option>Casa</option><option>Sport</option><option>Collezionismo</option><option>Altro</option></select></div>
+            <div class="form-group"><label>Quantità</label><input type="number" id="productQuantity" value="1" min="1"></div>
         </div>
-    </div>
-    <div id="productsList" class="products-grid"></div>
+        <div class="form-group"><label>Condizione</label><select id="productCondition"><option>Nuovo</option><option>Come nuovo</option><option>Ottimo</option><option>Buono</option></select></div>
+        <div class="form-row">
+            <div class="form-group"><label>Paese di spedizione</label><select id="productShippingFrom"><option value="IT">Italia</option><option value="EU">Europa</option><option value="Worldwide">Mondo</option></select></div>
+            <div class="form-group"><label>Costo spedizione (€)</label><input type="number" id="productShippingCost" value="0" step="0.01"></div>
+        </div>
+        <!-- NUOVO CAMPO AFFILIATE PRODUCT ID -->
+        <div class="form-group">
+            <label for="affiliateProductId">Affiliate Product ID (UUID)</label>
+            <input type="text" id="affiliateProductId" name="affiliateProductId" placeholder="es. f47ac10b-58cc-4372-a567-0e02b2c3d479">
+            <small>Inserisci l'ID che hai creato nel pannello admin del programma di affiliazione</small>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large">📤 Pubblica prodotto</button>
+    </form>
+    <div id="uploadMessage" class="alert"></div>
 </div>
-<div id="productModal" class="modal"><div class="modal-content modal-large"><span class="close" onclick="closeProductModal()">&times;</span><div id="productDetail"></div><div id="paymentButtons" class="payment-buttons"></div></div></div>
 <script src="script.js"></script>
 </body>
 </html>
