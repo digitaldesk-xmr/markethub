@@ -3,49 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carica prodotto - MarketHub</title>
+    <title data-key="nav_upload">Carica prodotto - MarketHub</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar">
     <div class="nav-container">
-        <div class="logo">🛒 MarketHub</div>
+        <div class="logo" data-key="site_name">🛒 MarketHub</div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Prodotti</a>
-            <a href="dashboard.html">Dashboard</a>
-            <a href="upload-product.html">Carica</a>
-            <a href="exchange.html">Exchange</a>
-            <a href="messages.html">Messaggi</a>
+            <a href="index.html" data-key="nav_home">Home</a>
+            <a href="products.html" data-key="nav_products">Prodotti</a>
+            <a href="dashboard.html" data-key="nav_dashboard">Dashboard</a>
+            <a href="upload-product.html" data-key="nav_upload">Carica</a>
+            <a href="exchange.html" data-key="nav_exchange">Exchange</a>
+            <a href="messages.html" data-key="nav_messages">Messaggi</a>
             <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
-            <a href="#" onclick="logout()">Esci</a>
+            <a href="#" onclick="logout()" data-key="nav_logout">Esci</a>
         </div>
     </div>
 </nav>
 <div class="upload-container">
-    <h1>Carica un nuovo prodotto</h1>
-    <p>Inserisci i dettagli del prodotto per venderlo in tutto il mondo</p>
+    <h1 data-key="nav_upload">Carica un nuovo prodotto</h1>
+    <p data-key="upload_sub">Inserisci i dettagli del prodotto per venderlo in tutto il mondo</p>
     <form id="uploadProductForm" class="upload-form" enctype="multipart/form-data">
-        <div class="form-group"><label>Foto prodotto *</label><input type="file" id="productImageFile" accept="image/*" required><div id="imagePreview" class="image-preview"></div></div>
-        <div class="form-group"><label>Nome prodotto *</label><input type="text" id="productName" required placeholder="Es. iPhone 14 Pro"></div>
-        <div class="form-group"><label>Descrizione *</label><textarea id="productDescription" rows="4" required placeholder="Descrivi il prodotto in dettaglio..."></textarea></div>
+        <div class="form-group"><label data-key="product_photo">Foto prodotto *</label><input type="file" id="productImageFile" accept="image/*" required><div id="imagePreview" class="image-preview"></div></div>
+        <div class="form-group"><label data-key="product_name_label">Nome prodotto *</label><input type="text" id="productName" required placeholder="Es. iPhone 14 Pro"></div>
+        <div class="form-group"><label data-key="product_description_label">Descrizione *</label><textarea id="productDescription" rows="4" required placeholder="Descrivi il prodotto in dettaglio..."></textarea></div>
         <div class="form-row">
-            <div class="form-group"><label>Prezzo (€) *</label><input type="number" id="productPrice" step="0.01" required></div>
-            <div class="form-group"><label>Categoria *</label><select id="productCategory" required><option>Elettronica</option><option>Abbigliamento</option><option>Casa</option><option>Sport</option><option>Collezionismo</option><option>Altro</option></select></div>
-            <div class="form-group"><label>Quantità</label><input type="number" id="productQuantity" value="1" min="1"></div>
+            <div class="form-group"><label data-key="product_price_label">Prezzo (€) *</label><input type="number" id="productPrice" step="0.01" required></div>
+            <div class="form-group"><label data-key="product_category_label">Categoria *</label><select id="productCategory" required><option data-key="cat_electronics">Elettronica</option><option data-key="cat_clothing">Abbigliamento</option><option data-key="cat_home">Casa</option><option data-key="cat_sport">Sport</option><option data-key="cat_collectibles">Collezionismo</option><option data-key="cat_other">Altro</option></select></div>
+            <div class="form-group"><label data-key="product_quantity_label">Quantità</label><input type="number" id="productQuantity" value="1" min="1"></div>
         </div>
-        <div class="form-group"><label>Condizione</label><select id="productCondition"><option>Nuovo</option><option>Come nuovo</option><option>Ottimo</option><option>Buono</option></select></div>
+        <div class="form-group"><label data-key="product_condition_label">Condizione</label><select id="productCondition"><option>Nuovo</option><option>Come nuovo</option><option>Ottimo</option><option>Buono</option></select></div>
         <div class="form-row">
-            <div class="form-group"><label>Paese di spedizione</label><select id="productShippingFrom"><option value="IT">Italia</option><option value="EU">Europa</option><option value="Worldwide">Mondo</option></select></div>
-            <div class="form-group"><label>Costo spedizione (€)</label><input type="number" id="productShippingCost" value="0" step="0.01"></div>
+            <div class="form-group"><label data-key="product_shipping_from_label">Paese di spedizione</label><select id="productShippingFrom"><option value="IT">Italia</option><option value="EU">Europa</option><option value="Worldwide">Mondo</option></select></div>
+            <div class="form-group"><label data-key="product_shipping_cost_label">Costo spedizione (€)</label><input type="number" id="productShippingCost" value="0" step="0.01"></div>
         </div>
         <div class="form-group">
             <label for="affiliateProductId">Affiliate Product ID (UUID)</label>
             <input type="text" id="affiliateProductId" name="affiliateProductId" placeholder="es. f47ac10b-58cc-4372-a567-0e02b2c3d479">
             <small>Inserisci l'ID che hai creato nel pannello admin del programma di affiliazione</small>
         </div>
-        <button type="submit" class="btn btn-primary btn-large">📤 Pubblica prodotto</button>
+        <button type="submit" class="btn btn-primary btn-large" data-key="publish_product">📤 Pubblica prodotto</button>
     </form>
     <div id="uploadMessage" class="alert"></div>
 </div>
