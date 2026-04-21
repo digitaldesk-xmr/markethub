@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prodotti - MarketHub</title>
+    <title data-key="all_products_title">Prodotti - MarketHub</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 <nav class="navbar">
     <div class="nav-container">
-        <div class="logo">🛒 MarketHub</div>
+        <div class="logo" data-key="site_name">🛒 MarketHub</div>
         <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="products.html">Prodotti</a>
-            <a href="dashboard.html" id="dashboardLink" style="display:none;">Dashboard</a>
-            <a href="upload-product.html" id="uploadLink" style="display:none;">Carica</a>
-            <a href="exchange.html">Exchange</a>
-            <a href="messages.html" id="messagesLink" style="display:none;">Messaggi</a>
+            <a href="index.html" data-key="nav_home">Home</a>
+            <a href="products.html" data-key="nav_products">Prodotti</a>
+            <a href="dashboard.html" id="dashboardLink" style="display:none;" data-key="nav_dashboard">Dashboard</a>
+            <a href="upload-product.html" id="uploadLink" style="display:none;" data-key="nav_upload">Carica</a>
+            <a href="exchange.html" data-key="nav_exchange">Exchange</a>
+            <a href="messages.html" id="messagesLink" style="display:none;" data-key="nav_messages">Messaggi</a>
             <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
-            <button class="btn-outline" onclick="showLogin()" id="loginBtn">Accedi</button>
-            <button class="btn-primary-small" onclick="showRegister()" id="registerBtn">Registrati</button>
-            <a href="#" onclick="logout()" id="logoutLink" style="display:none;">Esci</a>
+            <button class="btn-outline" onclick="showLogin()" id="loginBtn" data-key="btn_login">Accedi</button>
+            <button class="btn-primary-small" onclick="showRegister()" id="registerBtn" data-key="btn_register">Registrati</button>
+            <a href="#" onclick="logout()" id="logoutLink" style="display:none;" data-key="nav_logout">Esci</a>
         </div>
     </div>
 </nav>
