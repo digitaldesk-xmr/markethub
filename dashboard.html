@@ -15,9 +15,9 @@
             <a href="index.html">Home</a>
             <a href="products.html">Prodotti</a>
             <a href="dashboard.html">Dashboard</a>
-            <a href="upload-product.html">Carica</a>
+            <a href="upload-product.html" id="uploadLink" style="display:none;">Carica</a>
             <a href="exchange.html">Exchange</a>
-            <a href="messages.html">Messaggi</a>
+            <a href="messages.html" id="messagesLink" style="display:none;">Messaggi</a>
             <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
             <a href="#" onclick="logout()">Esci</a>
         </div>
@@ -35,7 +35,7 @@
         <div class="stat-card"><div class="stat-number" id="totalViews">0</div><div class="stat-label" data-key="stat_views">Visualizzazioni</div></div>
     </div>
     <div class="dashboard-actions">
-        <button class="btn btn-primary" onclick="window.location.href='upload-product.html'">➕ <span data-key="new_product">Nuovo prodotto</span></button>
+        <button class="btn btn-primary" onclick="window.location.href='upload-product.html'" id="uploadBtn">➕ <span data-key="new_product">Nuovo prodotto</span></button>
         <button class="btn btn-secondary" onclick="window.location.href='products.html'">👁️ <span data-key="my_products">I tuoi prodotti</span></button>
         <button class="btn btn-danger" onclick="deleteAccount()">🗑️ <span data-key="delete_account">Elimina il mio account</span></button>
     </div>
