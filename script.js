@@ -2,10 +2,8 @@
 /* Beacon ID: 7r1gqp1T5p-MarketHub-2025-04-11 */
 
 // ==================== SUPABASE INTEGRATION ==================
-import SUPABASE_CONFIG from "./supabase-config.js";
-
-const SUPABASE_URL = SUPABASE_CONFIG.URL;
-const SUPABASE_ANON_KEY = SUPABASE_CONFIG.ANON_KEY;
+const SUPABASE_URL = "https://xxxxx.supabase.co";   // SOSTITUISCI
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";   // SOSTITUISCI
 
 async function supabaseFetch(endpoint, options = {}) {
     const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
@@ -55,7 +53,7 @@ async function addProductToSupabase(product) {
     }
 }
 
-async function updateProductViews(productId, views) {
+async function updateProductViewsSupabase(productId, views) {
     try {
         await supabaseFetch(`products?id=eq.${productId}`, {
             method: 'PATCH',
@@ -65,15 +63,6 @@ async function updateProductViews(productId, views) {
         if (index !== -1) products[index].views = views;
     } catch (error) {
         console.error("Errore aggiornamento views:", error);
-    }
-}
-
-async function deleteProductFromSupabase(productId) {
-    try {
-        await supabaseFetch(`products?id=eq.${productId}`, { method: 'DELETE' });
-        products = products.filter(p => p.id != productId);
-    } catch (error) {
-        console.error("Errore cancellazione prodotto:", error);
     }
 }
 
@@ -99,285 +88,123 @@ function trackAffiliate() {
 }
 trackAffiliate();
 
-// ==================== MULTILINGUA (COMPLETO) ==================
+// ==================== MULTILINGUA ==================
 const translations = {
     it: {
-        site_name: "🛒 MarketHub",
-        nav_home: "Home",
-        nav_products: "Prodotti",
-        nav_dashboard: "Dashboard",
-        nav_messages: "Messaggi",
-        nav_upload: "Carica",
-        nav_exchange: "Exchange",
-        nav_logout: "Esci",
-        btn_login: "Accedi",
-        btn_register: "Registrati",
-        hero_title: "Vendi i tuoi prodotti in tutto il mondo",
-        hero_sub: "MarketHub è il marketplace dove chiunque può vendere prodotti fisici.",
-        hero_start: "Inizia a vendere",
-        hero_browse: "Esplora prodotti",
-        stat_sellers: "Venditori attivi",
-        stat_products: "Prodotti venduti",
-        stat_countries: "Paesi raggiunti",
+        site_name: "🛒 MarketHub", nav_home: "Home", nav_products: "Prodotti", nav_dashboard: "Dashboard",
+        nav_messages: "Messaggi", nav_upload: "Carica", nav_exchange: "Exchange", nav_logout: "Esci",
+        btn_login: "Accedi", btn_register: "Registrati",
+        hero_title: "Vendi i tuoi prodotti in tutto il mondo", hero_sub: "MarketHub è il marketplace dove chiunque può vendere prodotti fisici.",
+        hero_start: "Inizia a vendere", hero_browse: "Esplora prodotti",
+        stat_sellers: "Venditori attivi", stat_products: "Prodotti venduti", stat_countries: "Paesi raggiunti",
         features_title: "Perché scegliere MarketHub",
-        feat1_title: "Pagamenti flessibili",
-        feat1_desc: "Bitcoin, Ethereum, USDT e 300+ crypto",
-        feat2_title: "Vendita globale",
-        feat2_desc: "Raggiungi compratori in 120+ paesi",
-        feat3_title: "Prodotti fisici",
-        feat3_desc: "Elettronica, moda, arredamento",
-        feat4_title: "Protezione acquisti",
-        feat4_desc: "Recensioni verificate",
-        pricing_title: "Diventa venditore",
-        popular_badge: "🔥 Più venduto",
-        plan_name: "Piano Venditore",
-        plan_duration: "/30 giorni",
-        feature_unlimited: "✓ Prodotti illimitati",
-        feature_payments: "✓ Pagamenti crypto",
-        feature_messages: "✓ Messaggistica integrata",
-        feature_stats: "✓ Statistiche vendite",
-        feature_support: "✓ Supporto prioritario",
+        feat1_title: "Pagamenti flessibili", feat1_desc: "Bitcoin, Ethereum, USDT e 300+ crypto",
+        feat2_title: "Vendita globale", feat2_desc: "Raggiungi compratori in 120+ paesi",
+        feat3_title: "Prodotti fisici", feat3_desc: "Elettronica, moda, arredamento",
+        feat4_title: "Protezione acquisti", feat4_desc: "Recensioni verificate",
+        pricing_title: "Diventa venditore", popular_badge: "🔥 Più venduto", plan_name: "Piano Venditore",
+        plan_duration: "/30 giorni", feature_unlimited: "✓ Prodotti illimitati", feature_payments: "✓ Pagamenti crypto",
+        feature_messages: "✓ Messaggistica integrata", feature_stats: "✓ Statistiche vendite", feature_support: "✓ Supporto prioritario",
         btn_activate: "Attiva ora",
-        login_title: "Accedi",
-        register_title: "Registrati",
-        email_label: "Email",
-        password_label: "Password",
-        name_label: "Nome completo",
-        confirm_label: "Conferma password",
-        login_btn: "Accedi",
-        register_btn: "Registrati",
-        no_account: "Non hai un account?",
-        have_account: "Hai già un account?",
-        register_link: "Registrati",
-        login_link: "Accedi",
-        forgot_password: "Password dimenticata?",
-        reset_title: "Reset Password",
-        reset_instruction: "Inserisci la tua email. Riceverai una nuova password.",
-        reset_btn: "Invia nuova password",
-        reset_email_sent: "Una nuova password è stata inviata (controlla l'alert).",
-        reset_email_not_found: "Nessun account trovato con questa email.",
-        reset_error: "Errore. Riprova.",
-        subscription_title: "Abbonamento Venditore - €9,90",
-        payment_choice: "Paga in crypto con NOWPayments:",
-        all_products_title: "Tutti i prodotti",
-        search_placeholder: "🔍 Cerca prodotti...",
-        all_categories: "Tutte le categorie",
-        cat_electronics: "Elettronica",
-        cat_clothing: "Abbigliamento",
-        cat_home: "Casa e Arredamento",
-        cat_sport: "Sport",
-        cat_collectibles: "Collezionismo",
-        cat_other: "Altro",
-        no_products: "Nessun prodotto in vendita.",
-        exchange_title: "💰 Crypto Exchange",
-        exchange_sub: "Scambia criptovalute in modo semplice, veloce e sicuro con Trocador",
-        widget_title: "📊 Widget Exchange",
-        upload_sub: "Inserisci i dettagli del prodotto per venderlo in tutto il mondo",
-        product_photo: "Foto prodotto *",
-        product_name_label: "Nome prodotto *",
-        product_description_label: "Descrizione *",
-        product_price_label: "Prezzo (€) *",
-        product_category_label: "Categoria *",
-        product_quantity_label: "Quantità",
-        product_condition_label: "Condizione",
-        product_shipping_from_label: "Paese di spedizione",
-        product_shipping_cost_label: "Costo spedizione (€)",
-        publish_product: "📤 Pubblica prodotto",
-        dashboard_welcome: "Ciao",
-        active_until: "✅ Abbonamento attivo - Scade tra",
-        days_left: "giorni",
-        no_active_subscription: "⚠️ Nessun abbonamento attivo.",
-        activate_now: "Attiva ora €9,90",
+        login_title: "Accedi", register_title: "Registrati", email_label: "Email", password_label: "Password",
+        name_label: "Nome completo", confirm_label: "Conferma password", login_btn: "Accedi", register_btn: "Registrati",
+        no_account: "Non hai un account?", have_account: "Hai già un account?", register_link: "Registrati", login_link: "Accedi",
+        forgot_password: "Password dimenticata?", reset_title: "Reset Password", reset_instruction: "Inserisci la tua email. Riceverai una nuova password.",
+        reset_btn: "Invia nuova password", reset_email_sent: "Una nuova password è stata inviata (controlla l'alert).",
+        reset_email_not_found: "Nessun account trovato con questa email.", reset_error: "Errore. Riprova.",
+        subscription_title: "Abbonamento Venditore - €9,90", payment_choice: "Paga in crypto con NOWPayments:",
+        all_products_title: "Tutti i prodotti", search_placeholder: "🔍 Cerca prodotti...", all_categories: "Tutte le categorie",
+        cat_electronics: "Elettronica", cat_clothing: "Abbigliamento", cat_home: "Casa e Arredamento", cat_sport: "Sport",
+        cat_collectibles: "Collezionismo", cat_other: "Altro", no_products: "Nessun prodotto in vendita.",
+        exchange_title: "💰 Crypto Exchange", exchange_sub: "Scambia criptovalute in modo semplice, veloce e sicuro con Trocador", widget_title: "📊 Widget Exchange",
+        upload_sub: "Inserisci i dettagli del prodotto per venderlo in tutto il mondo", product_photo: "Foto prodotto *",
+        product_name_label: "Nome prodotto *", product_description_label: "Descrizione *", product_price_label: "Prezzo (€) *",
+        product_category_label: "Categoria *", product_quantity_label: "Quantità", product_condition_label: "Condizione",
+        product_shipping_from_label: "Paese di spedizione", product_shipping_cost_label: "Costo spedizione (€)", publish_product: "📤 Pubblica prodotto",
+        dashboard_welcome: "Ciao", active_until: "✅ Abbonamento attivo - Scade tra", days_left: "giorni",
+        no_active_subscription: "⚠️ Nessun abbonamento attivo.", activate_now: "Attiva ora €9,90",
         no_products_yet: "Nessun prodotto. <a href=\"upload-product.html\">Carica il primo</a>",
-        reviews_received: "📝 Recensioni ricevute",
-        no_reviews: "Nessuna recensione ricevuta.",
-        recent_products: "I tuoi ultimi prodotti",
-        new_product: "Nuovo prodotto",
-        my_products: "I tuoi prodotti",
-        delete_account: "Elimina il mio account",
-        stat_sales: "Vendite totali",
-        stat_revenue: "Guadagno totale",
-        stat_views: "Visualizzazioni",
-        seller: "Venditore",
-        ships_from: "Spedizione da",
-        stock: "Quantità",
-        views: "Visualizzazioni",
-        buy_with_crypto: "💰 Compra con Crypto",
-        contact_seller: "💬 Contatta venditore",
-        no_reviews_yet: "⭐ Nessuna recensione",
-        leave_review: "Lascia una recensione",
-        your_comment: "Il tuo commento...",
-        submit_review: "Invia recensione",
-        seller_reply: "Risposta del venditore:",
-        reply: "Rispondi",
-        no_conversations: "Nessuna conversazione",
-        chat_with: "💬 Chat con",
-        type_message: "Scrivi un messaggio...",
-        send: "Invia",
+        reviews_received: "📝 Recensioni ricevute", no_reviews: "Nessuna recensione ricevuta.",
+        recent_products: "I tuoi ultimi prodotti", new_product: "Nuovo prodotto", my_products: "I tuoi prodotti",
+        delete_account: "Elimina il mio account", stat_sales: "Vendite totali", stat_revenue: "Guadagno totale", stat_views: "Visualizzazioni",
+        seller: "Venditore", ships_from: "Spedizione da", stock: "Quantità", views: "Visualizzazioni",
+        buy_with_crypto: "💰 Compra con Crypto", contact_seller: "💬 Contatta venditore", no_reviews_yet: "⭐ Nessuna recensione",
+        leave_review: "Lascia una recensione", your_comment: "Il tuo commento...", submit_review: "Invia recensione",
+        seller_reply: "Risposta del venditore:", reply: "Rispondi",
+        no_conversations: "Nessuna conversazione", chat_with: "💬 Chat con", type_message: "Scrivi un messaggio...", send: "Invia",
         cookie_text: "🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando \"Accetta\", acconsenti all'uso dei cookie.",
-        cookie_link: "Scopri di più",
-        cookie_accept: "Accetta",
-        footer_payments: "Il marketplace globale per prodotti fisici",
-        footer_privacy: "Privacy",
-        footer_terms: "Termini",
-        alert_login_required: "Devi prima accedere",
-        alert_login_success: "Login effettuato!",
-        alert_invalid_credentials: "Credenziali errate",
-        alert_passwords_mismatch: "Le password non coincidono",
-        alert_email_exists: "Email già registrata",
-        alert_registered: "Registrato! Ora accedi",
+        cookie_link: "Scopri di più", cookie_accept: "Accetta",
+        footer_payments: "Il marketplace globale per prodotti fisici", footer_privacy: "Privacy", footer_terms: "Termini",
+        alert_login_required: "Devi prima accedere", alert_login_success: "Login effettuato!",
+        alert_invalid_credentials: "Credenziali errate", alert_passwords_mismatch: "Le password non coincidono",
+        alert_email_exists: "Email già registrata", alert_registered: "Registrato! Ora accedi",
         alert_subscription_expired: "Il tuo abbonamento è scaduto. Contatta l'admin per rinnovare.",
         alert_subscription_required: "Abbonamento richiesto per vendere.",
-        alert_product_published: "✅ Prodotto pubblicato!",
-        alert_message_sent: "Messaggio inviato!",
+        alert_product_published: "✅ Prodotto pubblicato!", alert_message_sent: "Messaggio inviato!",
         alert_account_deleted: "✅ Account eliminato con successo. Grazie per aver utilizzato MarketHub.",
         alert_delete_confirm: "⚠️ Sei sicuro? Questa azione cancellerà PERMANENTEMENTE il tuo account, tutti i tuoi prodotti e tutti i messaggi. Non potrai più recuperarli.",
         alert_delete_final: "Questa operazione è IRREVERSIBILE. Vuoi davvero procedere?",
-        alert_review_added: "Recensione aggiunta!",
-        alert_reply_added: "Risposta aggiunta!",
-        alert_review_comment_required: "Inserisci un commento.",
-        alert_review_already: "Hai già recensito questo prodotto.",
-        affiliate_link_label: "🔗 Il tuo link di affiliazione (condividi per guadagnare):",
-        affiliate_copy: "Copia link"
+        alert_review_added: "Recensione aggiunta!", alert_reply_added: "Risposta aggiunta!",
+        alert_review_comment_required: "Inserisci un commento.", alert_review_already: "Hai già recensito questo prodotto.",
+        affiliate_link_label: "🔗 Il tuo link di affiliazione (condividi per guadagnare):", affiliate_copy: "Copia link"
     },
     en: {
-        site_name: "🛒 MarketHub",
-        nav_home: "Home",
-        nav_products: "Products",
-        nav_dashboard: "Dashboard",
-        nav_messages: "Messages",
-        nav_upload: "Upload",
-        nav_exchange: "Exchange",
-        nav_logout: "Logout",
-        btn_login: "Login",
-        btn_register: "Sign up",
-        hero_title: "Sell your products worldwide",
-        hero_sub: "MarketHub is the marketplace where anyone can sell physical products.",
-        hero_start: "Start selling",
-        hero_browse: "Browse products",
-        stat_sellers: "Active sellers",
-        stat_products: "Products sold",
-        stat_countries: "Countries reached",
+        site_name: "🛒 MarketHub", nav_home: "Home", nav_products: "Products", nav_dashboard: "Dashboard",
+        nav_messages: "Messages", nav_upload: "Upload", nav_exchange: "Exchange", nav_logout: "Logout",
+        btn_login: "Login", btn_register: "Sign up",
+        hero_title: "Sell your products worldwide", hero_sub: "MarketHub is the marketplace where anyone can sell physical products.",
+        hero_start: "Start selling", hero_browse: "Browse products",
+        stat_sellers: "Active sellers", stat_products: "Products sold", stat_countries: "Countries reached",
         features_title: "Why choose MarketHub",
-        feat1_title: "Flexible payments",
-        feat1_desc: "Bitcoin, Ethereum, USDT and 300+ cryptos",
-        feat2_title: "Global selling",
-        feat2_desc: "Reach buyers in 120+ countries",
-        feat3_title: "Physical products",
-        feat3_desc: "Electronics, fashion, furniture",
-        feat4_title: "Purchase protection",
-        feat4_desc: "Verified reviews",
-        pricing_title: "Become a seller",
-        popular_badge: "🔥 Best seller",
-        plan_name: "Seller Plan",
-        plan_duration: "/30 days",
-        feature_unlimited: "✓ Unlimited products",
-        feature_payments: "✓ Crypto payments",
-        feature_messages: "✓ Integrated messaging",
-        feature_stats: "✓ Sales statistics",
-        feature_support: "✓ Priority support",
+        feat1_title: "Flexible payments", feat1_desc: "Bitcoin, Ethereum, USDT and 300+ cryptos",
+        feat2_title: "Global selling", feat2_desc: "Reach buyers in 120+ countries",
+        feat3_title: "Physical products", feat3_desc: "Electronics, fashion, furniture",
+        feat4_title: "Purchase protection", feat4_desc: "Verified reviews",
+        pricing_title: "Become a seller", popular_badge: "🔥 Best seller", plan_name: "Seller Plan",
+        plan_duration: "/30 days", feature_unlimited: "✓ Unlimited products", feature_payments: "✓ Crypto payments",
+        feature_messages: "✓ Integrated messaging", feature_stats: "✓ Sales statistics", feature_support: "✓ Priority support",
         btn_activate: "Activate now",
-        login_title: "Login",
-        register_title: "Sign up",
-        email_label: "Email",
-        password_label: "Password",
-        name_label: "Full name",
-        confirm_label: "Confirm password",
-        login_btn: "Login",
-        register_btn: "Sign up",
-        no_account: "Don't have an account?",
-        have_account: "Already have an account?",
-        register_link: "Sign up",
-        login_link: "Login",
-        forgot_password: "Forgot password?",
-        reset_title: "Reset Password",
-        reset_instruction: "Enter your email. You will receive a new password.",
-        reset_btn: "Send new password",
-        reset_email_sent: "A new password has been sent (check the alert).",
-        reset_email_not_found: "No account found with this email.",
-        reset_error: "Error. Please try again.",
-        subscription_title: "Seller Subscription - €9.90",
-        payment_choice: "Pay with crypto via NOWPayments:",
-        all_products_title: "All products",
-        search_placeholder: "🔍 Search products...",
-        all_categories: "All categories",
-        cat_electronics: "Electronics",
-        cat_clothing: "Clothing",
-        cat_home: "Home & Furniture",
-        cat_sport: "Sports",
-        cat_collectibles: "Collectibles",
-        cat_other: "Other",
-        no_products: "No products for sale.",
-        exchange_title: "💰 Crypto Exchange",
-        exchange_sub: "Swap cryptocurrencies easily, fast and securely with Trocador",
-        widget_title: "📊 Exchange Widget",
-        upload_sub: "Enter product details to sell worldwide",
-        product_photo: "Product photo *",
-        product_name_label: "Product name *",
-        product_description_label: "Description *",
-        product_price_label: "Price (€) *",
-        product_category_label: "Category *",
-        product_quantity_label: "Quantity",
-        product_condition_label: "Condition",
-        product_shipping_from_label: "Ships from",
-        product_shipping_cost_label: "Shipping cost (€)",
-        publish_product: "📤 Publish product",
-        dashboard_welcome: "Hello",
-        active_until: "✅ Active subscription - Expires in",
-        days_left: "days",
-        no_active_subscription: "⚠️ No active subscription.",
-        activate_now: "Activate now €9.90",
+        login_title: "Login", register_title: "Sign up", email_label: "Email", password_label: "Password",
+        name_label: "Full name", confirm_label: "Confirm password", login_btn: "Login", register_btn: "Sign up",
+        no_account: "Don't have an account?", have_account: "Already have an account?", register_link: "Sign up", login_link: "Login",
+        forgot_password: "Forgot password?", reset_title: "Reset Password", reset_instruction: "Enter your email. You will receive a new password.",
+        reset_btn: "Send new password", reset_email_sent: "A new password has been sent (check the alert).",
+        reset_email_not_found: "No account found with this email.", reset_error: "Error. Please try again.",
+        subscription_title: "Seller Subscription - €9.90", payment_choice: "Pay with crypto via NOWPayments:",
+        all_products_title: "All products", search_placeholder: "🔍 Search products...", all_categories: "All categories",
+        cat_electronics: "Electronics", cat_clothing: "Clothing", cat_home: "Home & Furniture", cat_sport: "Sports",
+        cat_collectibles: "Collectibles", cat_other: "Other", no_products: "No products for sale.",
+        exchange_title: "💰 Crypto Exchange", exchange_sub: "Swap cryptocurrencies easily, fast and securely with Trocador", widget_title: "📊 Exchange Widget",
+        upload_sub: "Enter product details to sell worldwide", product_photo: "Product photo *",
+        product_name_label: "Product name *", product_description_label: "Description *", product_price_label: "Price (€) *",
+        product_category_label: "Category *", product_quantity_label: "Quantity", product_condition_label: "Condition",
+        product_shipping_from_label: "Ships from", product_shipping_cost_label: "Shipping cost (€)", publish_product: "📤 Publish product",
+        dashboard_welcome: "Hello", active_until: "✅ Active subscription - Expires in", days_left: "days",
+        no_active_subscription: "⚠️ No active subscription.", activate_now: "Activate now €9.90",
         no_products_yet: "No products yet. <a href=\"upload-product.html\">Upload your first product</a>",
-        reviews_received: "📝 Reviews received",
-        no_reviews: "No reviews received yet.",
-        recent_products: "Your latest products",
-        new_product: "New product",
-        my_products: "Your products",
-        delete_account: "Delete my account",
-        stat_sales: "Total sales",
-        stat_revenue: "Total revenue",
-        stat_views: "Views",
-        seller: "Seller",
-        ships_from: "Ships from",
-        stock: "Stock",
-        views: "Views",
-        buy_with_crypto: "💰 Buy with Crypto",
-        contact_seller: "💬 Contact seller",
-        no_reviews_yet: "⭐ No reviews yet",
-        leave_review: "Leave a review",
-        your_comment: "Your comment...",
-        submit_review: "Submit review",
-        seller_reply: "Seller reply:",
-        reply: "Reply",
-        no_conversations: "No conversations yet",
-        chat_with: "💬 Chat with",
-        type_message: "Type a message...",
-        send: "Send",
+        reviews_received: "📝 Reviews received", no_reviews: "No reviews received yet.",
+        recent_products: "Your latest products", new_product: "New product", my_products: "Your products",
+        delete_account: "Delete my account", stat_sales: "Total sales", stat_revenue: "Total revenue", stat_views: "Views",
+        seller: "Seller", ships_from: "Ships from", stock: "Stock", views: "Views",
+        buy_with_crypto: "💰 Buy with Crypto", contact_seller: "💬 Contact seller", no_reviews_yet: "⭐ No reviews yet",
+        leave_review: "Leave a review", your_comment: "Your comment...", submit_review: "Submit review",
+        seller_reply: "Seller reply:", reply: "Reply",
+        no_conversations: "No conversations yet", chat_with: "💬 Chat with", type_message: "Type a message...", send: "Send",
         cookie_text: "🍪 We use essential technical cookies for the site to function. We do not use profiling cookies. By clicking 'Accept', you consent to the use of cookies.",
-        cookie_link: "Learn more",
-        cookie_accept: "Accept",
-        footer_payments: "The global marketplace for physical products",
-        footer_privacy: "Privacy",
-        footer_terms: "Terms",
-        alert_login_required: "You must be logged in first",
-        alert_login_success: "Login successful!",
-        alert_invalid_credentials: "Invalid credentials",
-        alert_passwords_mismatch: "Passwords do not match",
-        alert_email_exists: "Email already registered",
-        alert_registered: "Registered! Please login",
+        cookie_link: "Learn more", cookie_accept: "Accept",
+        footer_payments: "The global marketplace for physical products", footer_privacy: "Privacy", footer_terms: "Terms",
+        alert_login_required: "You must be logged in first", alert_login_success: "Login successful!",
+        alert_invalid_credentials: "Invalid credentials", alert_passwords_mismatch: "Passwords do not match",
+        alert_email_exists: "Email already registered", alert_registered: "Registered! Please login",
         alert_subscription_expired: "Your subscription has expired. Please contact admin to renew.",
         alert_subscription_required: "Subscription required to sell.",
-        alert_product_published: "✅ Product published!",
-        alert_message_sent: "Message sent!",
+        alert_product_published: "✅ Product published!", alert_message_sent: "Message sent!",
         alert_account_deleted: "✅ Account deleted successfully. Thank you for using MarketHub.",
         alert_delete_confirm: "⚠️ Are you sure? This will PERMANENTLY delete your account, all your products and all messages. You will not be able to recover them.",
         alert_delete_final: "This action is IRREVERSIBLE. Do you really want to proceed?",
-        alert_review_added: "Review added!",
-        alert_reply_added: "Reply added!",
-        alert_review_comment_required: "Please enter a comment.",
-        alert_review_already: "You have already reviewed this product.",
-        affiliate_link_label: "🔗 Your affiliate link (share to earn):",
-        affiliate_copy: "Copy link"
+        alert_review_added: "Review added!", alert_reply_added: "Reply added!",
+        alert_review_comment_required: "Please enter a comment.", alert_review_already: "You have already reviewed this product.",
+        affiliate_link_label: "🔗 Your affiliate link (share to earn):", affiliate_copy: "Copy link"
     }
 };
 
@@ -400,9 +227,7 @@ function translatePage() {
     });
 }
 
-function showAlertMessage(key) {
-    alert(translations[currentLang][key]);
-}
+function showAlertMessage(key) { alert(translations[currentLang][key]); }
 
 // ==================== BEACON TRACKER ==================
 const ORIGINAL_DOMAIN = "digitaldesk-xmr.github.io";
@@ -411,8 +236,7 @@ const TELEGRAM_CHAT_ID = "123456789";
 function sendBeaconAlert(message) {
     if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN === "123456:ABCdefGHIjklmNOPqrstuVWXyz") return;
     fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: message })
     }).catch(e => console.log("Beacon error:", e));
 }
@@ -423,66 +247,32 @@ function checkClone() {
     }
 }
 
-// ==================== DATABASE LOCALE (solo per messaggi e utenti) ==================
+// ==================== DATABASE ==================
 let products = [];
 let messages = [];
 let currentUser = null;
 
+function loadProducts() { return loadProductsFromSupabase(); }
+function saveProducts() { console.log("saveProducts: i dati sono su Supabase"); }
 function saveMessages() { localStorage.setItem('markethubMessages', JSON.stringify(messages)); }
 function loadMessages() { let stored = localStorage.getItem('markethubMessages'); if (stored) messages = JSON.parse(stored); else messages = []; }
 function saveCurrentUser(user) { currentUser = user; localStorage.setItem('markethubUser', JSON.stringify(user)); }
 function loadCurrentUser() { let user = localStorage.getItem('markethubUser'); if (user) currentUser = JSON.parse(user); }
 
-function getSubscriptionKey(email) { return `markethubSubscriptions`; }
+// ==================== SUBSCRIPTION ==================
 function checkSubscriptionStatus(email = null) {
     let checkEmail = email || (currentUser ? currentUser.email : null);
     if (!checkEmail) return false;
-    let subs = JSON.parse(localStorage.getItem(getSubscriptionKey()) || '{}');
+    let subs = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
     let sub = subs[checkEmail];
     if (!sub) return false;
     if (new Date(sub.expiresDate) < new Date()) {
         delete subs[checkEmail];
-        localStorage.setItem(getSubscriptionKey(), JSON.stringify(subs));
+        localStorage.setItem('markethubSubscriptions', JSON.stringify(subs));
         return false;
     }
     return true;
 }
-
-// ==================== AUTH ==================
-function showLogin() { document.getElementById('loginModal').classList.add('active'); }
-function closeLogin() { document.getElementById('loginModal').classList.remove('active'); }
-function showRegister() { document.getElementById('registerModal').classList.add('active'); }
-function closeRegister() { document.getElementById('registerModal').classList.remove('active'); }
-function switchToLogin() { closeRegister(); showLogin(); }
-function switchToRegister() { closeLogin(); showRegister(); }
-function logout() { localStorage.removeItem('markethubUser'); currentUser = null; window.location.href = 'index.html'; }
-
-function generateRandomPassword(length = 10) {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
-    let password = '';
-    for (let i = 0; i < length; i++) password += chars.charAt(Math.floor(Math.random() * chars.length));
-    return password;
-}
-
-function resetPassword(email) {
-    let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
-    const userIndex = users.findIndex(u => u.email === email);
-    if (userIndex === -1) {
-        document.getElementById('resetMessage').innerHTML = `<span style="color:#f87171;">${translations[currentLang].reset_email_not_found}</span>`;
-        return false;
-    }
-    const newPassword = generateRandomPassword(10);
-    users[userIndex].password = btoa(newPassword);
-    localStorage.setItem('markethubUsers', JSON.stringify(users));
-    alert(`🔐 Nuova password per ${email}: ${newPassword}\n\nConservala o cambiala dopo il login.`);
-    document.getElementById('resetMessage').innerHTML = `<span style="color:#4ade80;">${translations[currentLang].reset_email_sent}</span>`;
-    setTimeout(() => { closeResetModal(); document.getElementById('resetMessage').innerHTML = ''; }, 3000);
-    return true;
-}
-function showResetModal() { closeLogin(); document.getElementById('resetPasswordModal').classList.add('active'); }
-function closeResetModal() { document.getElementById('resetPasswordModal').classList.remove('active'); }
-
-// ==================== SUBSCRIPTION ==================
 const NOWPAYMENTS_SUBSCRIPTION_URL = "https://nowpayments.io/payment/?iid=4951702791";
 function startSubscription() {
     if (!currentUser) { showAlertMessage('alert_login_required'); showLogin(); return; }
@@ -500,6 +290,39 @@ function startSubscription() {
     modal.classList.add('active');
 }
 function closeSubscriptionModal() { document.getElementById('subscriptionModal').classList.remove('active'); }
+
+// ==================== AUTH ==================
+function showLogin() { document.getElementById('loginModal').classList.add('active'); }
+function closeLogin() { document.getElementById('loginModal').classList.remove('active'); }
+function showRegister() { document.getElementById('registerModal').classList.add('active'); }
+function closeRegister() { document.getElementById('registerModal').classList.remove('active'); }
+function switchToLogin() { closeRegister(); showLogin(); }
+function switchToRegister() { closeLogin(); showRegister(); }
+function logout() { localStorage.removeItem('markethubUser'); currentUser = null; window.location.href = 'index.html'; }
+
+function generateRandomPassword(length = 10) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%';
+    let password = '';
+    for (let i = 0; i < length; i++) password += chars.charAt(Math.floor(Math.random() * chars.length));
+    return password;
+}
+function resetPassword(email) {
+    let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
+    const userIndex = users.findIndex(u => u.email === email);
+    if (userIndex === -1) {
+        document.getElementById('resetMessage').innerHTML = `<span style="color:#f87171;">${translations[currentLang].reset_email_not_found}</span>`;
+        return false;
+    }
+    const newPassword = generateRandomPassword(10);
+    users[userIndex].password = btoa(newPassword);
+    localStorage.setItem('markethubUsers', JSON.stringify(users));
+    alert(`🔐 Nuova password per ${email}: ${newPassword}\n\nConservala o cambiala dopo il login.`);
+    document.getElementById('resetMessage').innerHTML = `<span style="color:#4ade80;">${translations[currentLang].reset_email_sent}</span>`;
+    setTimeout(() => { closeResetModal(); document.getElementById('resetMessage').innerHTML = ''; }, 3000);
+    return true;
+}
+function showResetModal() { closeLogin(); document.getElementById('resetPasswordModal').classList.add('active'); }
+function closeResetModal() { document.getElementById('resetPasswordModal').classList.remove('active'); }
 
 // ==================== NAVBAR DINAMICA ==================
 function updateNavbarForUser() {
@@ -546,6 +369,7 @@ function checkPageAccess() {
 // ==================== DASHBOARD ==================
 async function loadDashboard() {
     if (!currentUser) return;
+    await loadProducts(); // Ricarica da Supabase
     document.getElementById('userName').innerText = currentUser.name;
     let userProducts = products.filter(p => p.sellerEmail === currentUser.email);
     document.getElementById('totalProducts').innerText = userProducts.length;
@@ -600,7 +424,7 @@ function replyToReviewFromDashboard(productId, reviewIndex) {
         let p = products.find(p => p.id == productId);
         if (p && p.reviews && p.reviews[reviewIndex]) {
             p.reviews[reviewIndex].reply = { text: reply, date: new Date().toISOString() };
-            saveProducts(); // ma i prodotti sono su Supabase - da migliorare
+            saveProducts();
             alert(translations[currentLang].alert_reply_added);
             loadDashboard();
         }
@@ -656,7 +480,7 @@ function readFileAsDataURL(file) { return new Promise(resolve => { let r = new F
 
 // ==================== PRODOTTI ==================
 async function displayAllProducts() {
-    await loadProductsFromSupabase();
+    await loadProducts();
     let container = document.getElementById('productsList');
     if (!container) return;
     if (products.length === 0) { container.innerHTML = `<p data-key="no_products">${translations[currentLang].no_products}</p>`; return; }
@@ -695,7 +519,7 @@ async function viewProduct(productId) {
     let p = products.find(p => p.id == productId);
     if (!p) return;
     const newViews = (p.views || 0) + 1;
-    await updateProductViews(productId, newViews);
+    await updateProductViewsSupabase(productId, newViews);
     p.views = newViews;
 
     let avgRating = getAverageRating(p);
@@ -937,9 +761,34 @@ function deleteAccount() {
     }
 }
 
+// ==================== EXPORT FUNZIONI GLOBALI ==================
+window.showLogin = showLogin;
+window.closeLogin = closeLogin;
+window.showRegister = showRegister;
+window.closeRegister = closeRegister;
+window.switchToLogin = switchToLogin;
+window.switchToRegister = switchToRegister;
+window.logout = logout;
+window.setLanguage = setLanguage;
+window.startSubscription = startSubscription;
+window.closeSubscriptionModal = closeSubscriptionModal;
+window.payWithStripe = function() { alert("Pagamento con Stripe"); closeSubscriptionModal(); };
+window.payWithCrypto = function() { alert("Pagamento con Crypto"); closeSubscriptionModal(); };
+window.deleteAccount = deleteAccount;
+window.contactSeller = contactSeller;
+window.sendMessage = sendMessage;
+window.viewProduct = viewProduct;
+window.closeProductModal = closeProductModal;
+window.buyWithCrypto = buyWithCrypto;
+window.submitReview = submitReview;
+window.replyToReview = replyToReview;
+window.filterProducts = filterProducts;
+window.showResetModal = showResetModal;
+window.closeResetModal = closeResetModal;
+
 // ==================== INIT ==================
 document.addEventListener('DOMContentLoaded', async () => {
-    await loadProductsFromSupabase();
+    await loadProducts();
     loadMessages(); loadCurrentUser(); translatePage();
     updateNavbarForUser();
     if (!checkPageAccess()) return;
