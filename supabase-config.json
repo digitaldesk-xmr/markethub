@@ -1,0 +1,6 @@
+// supabase-config.js
+const SUPABASE_CONFIG = {
+    URL: "https://xxxxx.supabase.co",        // https://lfbibwzqgbiiokwpfhps.supabase.co
+    ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  // Sostituisci con la tua anon key
+};
+export default SUPABASE_CONFIG;
