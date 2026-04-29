@@ -3,48 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-key="site_name">MarketHub - Marketplace Globale</title>
+    <title>MarketHub - Il tuo marketplace su Telegram</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- WATERMARK: MarketHub - Copyright (c) 2025 ops.channel@proton.me - MIT License -->
-<!-- UniqueID: 7r1gqp1T5p-MarketHub-2025-04-11 -->
-
-<!-- Cookie Banner -->
-<div id="cookieBanner" class="cookie-banner" style="display: none;">
-    <p data-key="cookie_text">🍪 Utilizziamo cookie tecnici essenziali per il funzionamento del sito. Non usiamo cookie di profilazione. Cliccando "Accetta", acconsenti all'uso dei cookie. <a href="privacy.html" data-key="cookie_link">Scopri di più</a></p>
-    <button id="acceptCookies" class="btn btn-primary" data-key="cookie_accept">Accetta</button>
-</div>
 
 <nav class="navbar">
     <div class="nav-container">
-        <div class="logo" data-key="site_name">🛒 MarketHub</div>
+        <div class="logo">🛒 MarketHub</div>
         <div class="nav-links">
-            <a href="index.html" data-key="nav_home">Home</a>
-            <a href="products.html" data-key="nav_products">Prodotti</a>
-            <a href="dashboard.html" id="dashboardLink" style="display:none;" data-key="nav_dashboard">Dashboard</a>
-            <a href="upload-product.html" id="uploadLink" style="display:none;" data-key="nav_upload">Carica</a>
-            <a href="exchange.html" data-key="nav_exchange">Exchange</a>
-            <a href="messages.html" id="messagesLink" style="display:none;" data-key="nav_messages">Messaggi</a>
-            <div class="lang-switch">
-                <button class="lang-btn" onclick="setLanguage('it')">🇮🇹 IT</button>
-                <button class="lang-btn" onclick="setLanguage('en')">🇬🇧 EN</button>
-            </div>
-            <button class="btn-outline" onclick="showLogin()" id="loginBtn" data-key="btn_login">Accedi</button>
-            <button class="btn-primary-small" onclick="showRegister()" id="registerBtn" data-key="btn_register">Registrati</button>
-            <a href="#" onclick="logout()" id="logoutLink" style="display:none;" data-key="nav_logout">Esci</a>
+            <a href="#home">Home</a>
+            <a href="#features">Vantaggi</a>
+            <a href="#pricing">Prezzi</a>
         </div>
     </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="home">
     <div class="hero-content">
-        <h1 data-key="hero_title">Vendi i tuoi prodotti <span class="gradient">in tutto il mondo</span></h1>
-        <p data-key="hero_sub">MarketHub è il marketplace dove chiunque può vendere prodotti fisici. Pagamenti sicuri, commissioni trasparenti.</p>
+        <h1>Il tuo marketplace <span class="gradient">su Telegram</span></h1>
+        <p>Vendi e compra prodotti fisici comodamente su Telegram. Pagamenti in criptovalute, zero commissioni nascoste.</p>
         <div class="hero-buttons">
-            <button class="btn btn-primary" onclick="showRegister()" data-key="hero_start">Inizia a vendere</button>
-            <button class="btn btn-secondary" onclick="window.location.href='products.html'" data-key="hero_browse">Esplora prodotti</button>
+            <a href="https://web.telegram.org/a/#8640586976" target="_blank" class="btn btn-primary">🚀 Apri su Telegram</a>
+            <a href="#features" class="btn btn-secondary">Scopri di più</a>
         </div>
     </div>
 </header>
@@ -52,91 +34,52 @@
 <section class="stats">
     <div class="container">
         <div class="stats-grid">
-            <div class="stat-item"><div class="stat-number">10k+</div><div class="stat-label" data-key="stat_sellers">Venditori attivi</div></div>
-            <div class="stat-item"><div class="stat-number">50k+</div><div class="stat-label" data-key="stat_products">Prodotti venduti</div></div>
-            <div class="stat-item"><div class="stat-number">120+</div><div class="stat-label" data-key="stat_countries">Paesi raggiunti</div></div>
+            <div class="stat-item"><div class="stat-number">10k+</div><div class="stat-label">Venditori attivi</div></div>
+            <div class="stat-item"><div class="stat-number">50k+</div><div class="stat-label">Prodotti venduti</div></div>
+            <div class="stat-item"><div class="stat-number">120+</div><div class="stat-label">Paesi raggiunti</div></div>
         </div>
     </div>
 </section>
 
-<section class="features">
+<section class="features" id="features">
     <div class="container">
-        <h2 data-key="features_title">Perché scegliere MarketHub</h2>
+        <h2>Perché scegliere MarketHub</h2>
         <div class="features-grid">
-            <div class="feature-card"><div class="feature-icon">💳</div><h3 data-key="feat1_title">Pagamenti flessibili</h3><p data-key="feat1_desc">Bitcoin, Ethereum, USDT e 300+ crypto</p></div>
-            <div class="feature-card"><div class="feature-icon">🌍</div><h3 data-key="feat2_title">Vendita globale</h3><p data-key="feat2_desc">Raggiungi compratori in 120+ paesi</p></div>
-            <div class="feature-card"><div class="feature-icon">📦</div><h3 data-key="feat3_title">Prodotti fisici</h3><p data-key="feat3_desc">Elettronica, moda, arredamento, collezionismo</p></div>
-            <div class="feature-card"><div class="feature-icon">🛡️</div><h3 data-key="feat4_title">Protezione acquisti</h3><p data-key="feat4_desc">Recensioni verificate e assistenza clienti</p></div>
+            <div class="feature-card"><div class="feature-icon">💳</div><h3>Pagamenti in crypto</h3><p>Bitcoin, Ethereum, USDT e 300+ criptovalute supportate</p></div>
+            <div class="feature-card"><div class="feature-icon">🌍</div><h3>Vendita globale</h3><p>Raggiungi compratori in 120+ paesi senza restrizioni</p></div>
+            <div class="feature-card"><div class="feature-icon">📦</div><h3>Prodotti fisici</h3><p>Elettronica, moda, arredamento, collezionismo e molto altro</p></div>
+            <div class="feature-card"><div class="feature-icon">🤖</div><h3>Tutto su Telegram</h3><p>Gestisci il tuo negozio direttamente dal bot, senza complicazioni</p></div>
         </div>
     </div>
 </section>
 
-<section class="pricing">
+<section class="pricing" id="pricing">
     <div class="container">
-        <h2 data-key="pricing_title">Diventa venditore</h2>
+        <h2>Diventa venditore</h2>
         <div class="pricing-grid">
             <div class="pricing-card popular">
-                <div class="badge" data-key="popular_badge">🔥 Più venduto</div>
-                <h3 data-key="plan_name">Piano Venditore</h3>
-                <div class="price">€9,90<span data-key="plan_duration">/30 giorni</span></div>
+                <div class="badge">🔥 Più venduto</div>
+                <h3>Piano Venditore</h3>
+                <div class="price">€9,90<span>/30 giorni</span></div>
                 <ul>
-                    <li data-key="feature_unlimited">✓ Prodotti illimitati</li>
-                    <li data-key="feature_payments">✓ Pagamenti crypto</li>
-                    <li data-key="feature_messages">✓ Messaggistica integrata</li>
-                    <li data-key="feature_stats">✓ Statistiche vendite</li>
-                    <li data-key="feature_support">✓ Supporto prioritario</li>
+                    <li>✓ Prodotti illimitati</li>
+                    <li>✓ Pagamenti crypto</li>
+                    <li>✓ Assistenza prioritaria</li>
+                    <li>✓ Statistiche vendite</li>
+                    <li>✓ Nessuna commissione sulle vendite</li>
                 </ul>
-                <button class="btn btn-primary" onclick="startSubscription()" data-key="btn_activate">Attiva ora</button>
+                <a href="https://web.telegram.org/a/#8640586976" target="_blank" class="btn btn-primary">Attiva ora su Telegram</a>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Modali -->
-<div id="loginModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeLogin()">&times;</span>
-        <h2 data-key="login_title">Accedi</h2>
-        <form id="loginForm">
-            <div class="form-group"><label data-key="email_label">Email</label><input type="email" id="loginEmail" required></div>
-            <div class="form-group"><label data-key="password_label">Password</label><input type="password" id="loginPassword" required></div>
-            <button type="submit" class="btn btn-primary" data-key="login_btn">Accedi</button>
-        </form>
-        <p data-key="no_account">Non hai un account? <a href="#" onclick="switchToRegister()" data-key="register_link">Registrati</a></p>
-    </div>
-</div>
-
-<div id="registerModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeRegister()">&times;</span>
-        <h2 data-key="register_title">Registrati</h2>
-        <form id="registerForm">
-            <div class="form-group"><label data-key="name_label">Nome completo</label><input type="text" id="regName" required></div>
-            <div class="form-group"><label data-key="email_label">Email</label><input type="email" id="regEmail" required></div>
-            <div class="form-group"><label data-key="password_label">Password</label><input type="password" id="regPassword" required></div>
-            <div class="form-group"><label data-key="confirm_label">Conferma password</label><input type="password" id="regConfirmPassword" required></div>
-            <button type="submit" class="btn btn-primary" data-key="register_btn">Registrati</button>
-        </form>
-        <p data-key="have_account">Hai già un account? <a href="#" onclick="switchToLogin()" data-key="login_link">Accedi</a></p>
-    </div>
-</div>
-
-<div id="subscriptionModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeSubscriptionModal()">&times;</span>
-        <h2 data-key="subscription_title">Abbonamento Venditore - €9,90</h2>
-        <p data-key="payment_choice">Paga in crypto con NOWPayments:</p>
-        <div id="subPaymentOptions" class="payment-methods"></div>
-    </div>
-</div>
-
 <footer>
     <div class="container">
-        <p>&copy; 2025 MarketHub - <span data-key="footer_payments">Il marketplace globale per prodotti fisici</span></p>
-        <p><a href="privacy.html" data-key="footer_privacy">Privacy</a> | <a href="terms.html" data-key="footer_terms">Termini</a></p>
+        <p>&copy; 2025 MarketHub - Il marketplace globale su Telegram</p>
+        <p><a href="#">Privacy</a> | <a href="#">Termini</a> | <a href="https://web.telegram.org/a/#8640586976" target="_blank">Bot Telegram</a></p>
     </div>
 </footer>
 
-<script src="script.js"></script>
 </body>
 </html>
