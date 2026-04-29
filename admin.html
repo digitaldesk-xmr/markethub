@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - MarketHub</title>
+    <title>Admin - MarketHub</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -15,7 +15,10 @@
         th { color: #f97316; }
         .badge-active { background: #22c55e; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
         .badge-inactive { background: #ef4444; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
-        .btn-small { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0 0.2rem; }
+        .badge-expired { background: #f97316; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
+        .btn-small { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0 0.2rem; border-radius: 20px; cursor: pointer; border: none; }
+        .btn-activate { background: #22c55e; color: white; }
+        .btn-deactivate { background: #ef4444; color: white; }
         .login-form { max-width: 400px; margin: 5rem auto; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 24px; }
         .hidden { display: none; }
     </style>
@@ -44,101 +47,37 @@
 <div id="adminPanel" class="admin-container hidden">
     <div class="admin-header">
         <h1>👑 Pannello Admin</h1>
-        <p>Gestisci abbonamenti dei venditori</p>
+        <p>Gestisci gli abbonamenti dei venditori</p>
     </div>
     <div class="users-table">
-        <h3>📋 Lista Venditori</h3>
+        <h3>📋 Lista Venditori Registrati</h3>
         <div style="overflow-x: auto;">
             <table id="usersTable">
-                <thead><tr><th>Email</th><th>Nome</th><th>Data registrazione</th><th>Abbonamento</th><th>Scadenza</th><th>Azioni</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telegram</th>
+                        <th>Data registrazione</th>
+                        <th>Abbonamento</th>
+                        <th>Scadenza</th>
+                        <th>Azioni</th>
+                    </tr>
+                </thead>
                 <tbody id="usersTableBody"></tbody>
             </table>
         </div>
     </div>
     <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem;">
-        <h3>➕ Attiva abbonamento manualmente</h3>
-        <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;">
-            <input type="email" id="manualEmail" placeholder="Email venditore" style="flex:1; padding:0.8rem; border-radius:12px;">
-            <select id="manualDays" style="padding:0.8rem; border-radius:12px;">
-                <option value="30">30 giorni (€9,90)</option>
-                <option value="90">90 giorni (€27)</option>
-                <option value="365">365 giorni (€99)</option>
-            </select>
-            <button class="btn btn-primary" onclick="manualActivateSubscription()">Attiva abbonamento</button>
-        </div>
-    </div>
-    <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem;">
         <h3>📊 Statistiche</h3>
-        <div style="display: flex; gap: 2rem; margin-top: 1rem;">
+        <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
             <div><strong id="statUsers">0</strong> Venditori registrati</div>
             <div><strong id="statActive">0</strong> Abbonamenti attivi</div>
-            <div><strong id="statProducts">0</strong> Prodotti totali</div>
+            <div><strong id="statExpiring">0</strong> Scadono in &lt; 7 giorni</div>
         </div>
     </div>
 </div>
 
 <script src="script.js"></script>
-<script>
-    function checkAdminLogin() {
-        let pwd = document.getElementById('adminPassword').value;
-        if (pwd === '/adminxmr668818') {
-            localStorage.setItem('adminLoggedIn', 'true');
-            document.getElementById('adminLogin').classList.add('hidden');
-            document.getElementById('adminPanel').classList.remove('hidden');
-            loadAdminData();
-        } else { alert('Password errata'); }
-    }
-    function logoutAdmin() { localStorage.removeItem('adminLoggedIn'); window.location.href = 'index.html'; }
-    function loadAdminData() {
-        let users = JSON.parse(localStorage.getItem('markethubUsers') || '[]');
-        let products = JSON.parse(localStorage.getItem('markethubProducts') || '[]');
-        let subscriptions = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
-        document.getElementById('statUsers').innerText = users.length;
-        document.getElementById('statProducts').innerText = products.length;
-        let activeCount = 0;
-        let tbody = document.getElementById('usersTableBody');
-        tbody.innerHTML = '';
-        users.forEach(user => {
-            let sub = subscriptions[user.email];
-            let isActive = false, expiryDate = '';
-            if (sub && new Date(sub.expiresDate) > new Date()) { isActive = true; activeCount++; expiryDate = new Date(sub.expiresDate).toLocaleDateString(); }
-            else expiryDate = sub ? 'Scaduto' : 'Mai attivato';
-            tbody.innerHTML += `<tr><td>${user.email}</td><td>${user.name}</td><td>${new Date(user.joinDate).toLocaleDateString()}</td><td>${isActive ? '<span class="badge-active">Attivo</span>' : '<span class="badge-inactive">Inattivo</span>'}</td><td>${expiryDate}</td><td><button class="btn-small btn-primary" onclick="activateUserSubscription('${user.email}',30)">Attiva 30gg</button> <button class="btn-small btn-secondary" onclick="deactivateUserSubscription('${user.email}')">Disattiva</button> <button class="btn-small" onclick="deleteUserProducts('${user.email}')">Cancella prodotti</button></td></tr>`;
-        });
-        document.getElementById('statActive').innerText = activeCount;
-    }
-    function activateUserSubscription(email, days) {
-        let subs = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
-        subs[email] = { expiresDate: new Date(Date.now() + days*86400000).toISOString(), activatedBy: 'admin', activatedAt: new Date().toISOString() };
-        localStorage.setItem('markethubSubscriptions', JSON.stringify(subs));
-        alert(`Abbonamento attivato per ${email} per ${days} giorni`);
-        loadAdminData();
-    }
-    function deactivateUserSubscription(email) {
-        let subs = JSON.parse(localStorage.getItem('markethubSubscriptions') || '{}');
-        delete subs[email];
-        localStorage.setItem('markethubSubscriptions', JSON.stringify(subs));
-        alert(`Abbonamento disattivato per ${email}`);
-        loadAdminData();
-    }
-    function deleteUserProducts(email) {
-        let prods = JSON.parse(localStorage.getItem('markethubProducts') || '[]');
-        localStorage.setItem('markethubProducts', JSON.stringify(prods.filter(p => p.sellerEmail !== email)));
-        alert(`Prodotti cancellati per ${email}`);
-        loadAdminData();
-    }
-    function manualActivateSubscription() {
-        let email = document.getElementById('manualEmail').value;
-        let days = parseInt(document.getElementById('manualDays').value);
-        if (!email) { alert('Inserisci email'); return; }
-        activateUserSubscription(email, days);
-        document.getElementById('manualEmail').value = '';
-    }
-    if (localStorage.getItem('adminLoggedIn') === 'true') {
-        document.getElementById('adminLogin').classList.add('hidden');
-        document.getElementById('adminPanel').classList.remove('hidden');
-        loadAdminData();
-    }
-</script>
 </body>
 </html>
