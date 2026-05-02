@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La mia area - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="index.html#features">Vantaggi</a>
+            <a href="index.html#pricing">Prezzi</a>
+            <a href="#" onclick="logout()">Esci</a>
+        </div>
+    </div>
+</nav>
+
+<div class="register">
+    <div class="container">
+        <h2>Benvenuto, <span id="userName"></span>!</h2>
+        <div id="subscriptionCard" class="pricing-card" style="max-width: 500px; margin: 2rem auto;">
+            <h3>Il tuo abbonamento</h3>
+            <div id="subscriptionStatus" class="subscription-status" style="margin: 1rem 0;"></div>
+            <div id="subscriptionExpiry" style="color: #94a3b8; margin-bottom: 1rem;"></div>
+            <div id="subscriptionButton"></div>
+        </div>
+        <p style="text-align: center; margin-top: 1rem;">
+            <a href="https://web.telegram.org/a/#8640586976" target="_blank" class="btn btn-primary">🚀 Vai al Bot Telegram</a>
+        </p>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 MarketHub - Il marketplace globale su Telegram</p>
+        <p><a href="privacy.html">Privacy</a> | <a href="terms.html">Termini</a> | <a href="cookies.html">Cookie Policy</a> | <a href="https://web.telegram.org/a/#8640586976" target="_blank">Bot Telegram</a></p>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
