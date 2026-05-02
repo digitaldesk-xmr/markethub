@@ -13,9 +13,9 @@
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
         th { color: #f97316; }
-        .badge-active { background: #22c55e; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
-        .badge-inactive { background: #ef4444; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
-        .badge-expired { background: #f97316; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; }
+        .badge-active { background: #22c55e; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; display: inline-block; }
+        .badge-inactive { background: #ef4444; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; display: inline-block; }
+        .badge-expired { background: #f97316; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; display: inline-block; }
         .btn-small { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0 0.2rem; border-radius: 20px; cursor: pointer; border: none; }
         .btn-activate { background: #22c55e; color: white; }
         .btn-deactivate { background: #ef4444; color: white; }
@@ -24,6 +24,7 @@
     </style>
 </head>
 <body>
+
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo">🛒 MarketHub Admin</div>
@@ -57,14 +58,19 @@
                     <tr><th>Nome</th><th>Email</th><th>Telegram</th><th>Data registrazione</th><th>Abbonamento</th><th>Scadenza</th><th>Azioni</th></tr>
                 </thead>
                 <tbody id="usersTableBody"></tbody>
-            堆
+            </table>
         </div>
     </div>
     <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem;">
         <h3>📊 Statistiche</h3>
-        <div style="display: flex; gap: 2rem; margin-top: 1rem;"><div><strong id="statUsers">0</strong> Venditori registrati</div><div><strong id="statActive">0</strong> Abbonamenti attivi</div><div><strong id="statExpiring">0</strong> Scadono in &lt; 7 giorni</div></div>
+        <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+            <div><strong id="statUsers">0</strong> Venditori registrati</div>
+            <div><strong id="statActive">0</strong> Abbonamenti attivi</div>
+            <div><strong id="statExpiring">0</strong> Scadono in &lt; 7 giorni</div>
+        </div>
     </div>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
