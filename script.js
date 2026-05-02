@@ -1,27 +1,99 @@
-// ==================== GESTIONE UTENTI ==================
-function loadUsers() {
-    const users = localStorage.getItem('markethubUsers');
-    return users ? JSON.parse(users) : [];
+// supabase-config.js deve esistere
+const SUPABASE_URL = "https://tuo-progetto.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+
+async function supabaseFetch(endpoint, options = {}) {
+    const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
+    const response = await fetch(url, {
+        ...options,
+        headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            ...options.headers
+        }
+    });
+    if (!response.ok) throw new Error(await response.text());
+    return response.json();
 }
 
-function saveUsers(users) {
-    localStorage.setItem('markethubUsers', JSON.stringify(users));
+// ==================== UTENTI ==================
+async function loadUsers() {
+    try {
+        return await supabaseFetch('users?select=*');
+    } catch (error) {
+        console.error("Errore caricamento utenti:", error);
+        return [];
+    }
 }
 
-function loadSubscriptions() {
-    const subs = localStorage.getItem('markethubSubscriptions');
-    return subs ? JSON.parse(subs) : {};
+async function saveUser(user) {
+    try {
+        const data = await supabaseFetch('users', {
+            method: 'POST',
+            body: JSON.stringify(user)
+        });
+        return data[0];
+    } catch (error) {
+        console.error("Errore salvataggio utente:", error);
+        return null;
+    }
 }
 
-function saveSubscriptions(subs) {
-    localStorage.setItem('markethubSubscriptions', JSON.stringify(subs));
+async function checkUserExists(email) {
+    const users = await loadUsers();
+    return users.find(u => u.email === email);
+}
+
+// ==================== ABBONAMENTI ==================
+async function loadSubscriptions() {
+    try {
+        return await supabaseFetch('subscriptions?select=*');
+    } catch (error) {
+        console.error("Errore caricamento abbonamenti:", error);
+        return [];
+    }
+}
+
+async function saveSubscription(sub) {
+    try {
+        const data = await supabaseFetch('subscriptions', {
+            method: 'POST',
+            body: JSON.stringify(sub)
+        });
+        return data[0];
+    } catch (error) {
+        console.error("Errore salvataggio abbonamento:", error);
+        return null;
+    }
+}
+
+async function updateSubscription(email, updates) {
+    try {
+        await supabaseFetch(`subscriptions?email=eq.${email}`, {
+            method: 'PATCH',
+            body: JSON.stringify(updates)
+        });
+    } catch (error) {
+        console.error("Errore aggiornamento abbonamento:", error);
+    }
+}
+
+async function deleteSubscription(email) {
+    try {
+        await supabaseFetch(`subscriptions?email=eq.${email}`, {
+            method: 'DELETE'
+        });
+    } catch (error) {
+        console.error("Errore cancellazione abbonamento:", error);
+    }
 }
 
 // ==================== REGISTRAZIONE ==================
 document.addEventListener('DOMContentLoaded', () => {
     const registerForm = document.getElementById('registerForm');
     if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const name = document.getElementById('regName').value;
@@ -37,24 +109,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            let users = loadUsers();
-            if (users.find(u => u.email === email)) {
+            const existing = await checkUserExists(email);
+            if (existing) {
                 messageDiv.innerHTML = 'Email già registrata';
                 messageDiv.className = 'alert error';
                 return;
             }
             
             const newUser = {
-                id: Date.now(),
                 name: name,
                 email: email,
                 telegram: telegram,
                 password: btoa(password),
-                registerDate: new Date().toISOString()
+                register_date: new Date().toISOString()
             };
             
-            users.push(newUser);
-            saveUsers(users);
+            await saveUser(newUser);
             
             messageDiv.innerHTML = '✅ Registrazione completata! Attendi che l\'admin attivi il tuo abbonamento.';
             messageDiv.className = 'alert success';
@@ -69,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ==================== ADMIN PANEL ==================
-function checkAdminLogin() {
+async function checkAdminLogin() {
     const pwd = document.getElementById('adminPassword').value;
     if (pwd === 'admin123') {
         localStorage.setItem('adminLoggedIn', 'true');
@@ -86,28 +156,23 @@ function logoutAdmin() {
     window.location.href = 'index.html';
 }
 
-function checkExpiredSubscriptions() {
-    const subs = loadSubscriptions();
+async function checkExpiredSubscriptions() {
+    const subs = await loadSubscriptions();
     const now = new Date();
-    let changed = false;
-    
-    for (const [email, data] of Object.entries(subs)) {
-        if (new Date(data.expiresDate) < now) {
-            delete subs[email];
-            changed = true;
+    for (const sub of subs) {
+        if (new Date(sub.expires_date) < now) {
+            await deleteSubscription(sub.email);
         }
-    }
-    
-    if (changed) {
-        saveSubscriptions(subs);
     }
 }
 
-function loadAdminData() {
-    checkExpiredSubscriptions();
+async function loadAdminData() {
+    await checkExpiredSubscriptions();
     
-    const users = loadUsers();
-    const subs = loadSubscriptions();
+    const users = await loadUsers();
+    const subs = await loadSubscriptions();
+    const subsMap = {};
+    subs.forEach(s => { subsMap[s.email] = s; });
     
     document.getElementById('statUsers').innerText = users.length;
     
@@ -116,8 +181,8 @@ function loadAdminData() {
     const now = new Date();
     const sevenDays = 7 * 24 * 60 * 60 * 1000;
     
-    for (const [email, data] of Object.entries(subs)) {
-        const expiryDate = new Date(data.expiresDate);
+    for (const sub of subs) {
+        const expiryDate = new Date(sub.expires_date);
         if (expiryDate > now) {
             activeCount++;
             if (expiryDate - now < sevenDays) {
@@ -132,23 +197,20 @@ function loadAdminData() {
     const tbody = document.getElementById('usersTableBody');
     tbody.innerHTML = '';
     
-    users.forEach(user => {
-        const sub = subs[user.email];
-        const nowDate = new Date();
+    for (const user of users) {
+        const sub = subsMap[user.email];
         let status = '';
         let statusClass = '';
         let expiryText = '';
-        let expiryDate = null;
         
-        if (sub && new Date(sub.expiresDate) > nowDate) {
-            expiryDate = new Date(sub.expiresDate);
+        if (sub && new Date(sub.expires_date) > now) {
             status = 'Attivo';
             statusClass = 'badge-active';
-            expiryText = expiryDate.toLocaleDateString() + ' ' + expiryDate.toLocaleTimeString();
-        } else if (sub && new Date(sub.expiresDate) <= nowDate) {
+            expiryText = new Date(sub.expires_date).toLocaleDateString();
+        } else if (sub && new Date(sub.expires_date) <= now) {
             status = 'Scaduto';
             statusClass = 'badge-expired';
-            expiryText = new Date(sub.expiresDate).toLocaleDateString();
+            expiryText = new Date(sub.expires_date).toLocaleDateString();
         } else {
             status = 'Inattivo';
             statusClass = 'badge-inactive';
@@ -160,7 +222,7 @@ function loadAdminData() {
                 <td>${user.name}</td>
                 <td>${user.email}</td>
                 <td>${user.telegram || '-'}</td>
-                <td>${new Date(user.registerDate).toLocaleDateString()}</td>
+                <td>${new Date(user.register_date).toLocaleDateString()}</td>
                 <td><span class="${statusClass}">${status}</span></td>
                 <td>${expiryText}</td>
                 <td>
@@ -169,39 +231,40 @@ function loadAdminData() {
                 </td>
             </tr>
         `;
-    });
+    }
 }
 
-function activateSubscription(email) {
-    const subs = loadSubscriptions();
+async function activateSubscription(email) {
     const expiresDate = new Date();
     expiresDate.setDate(expiresDate.getDate() + 30);
     
-    subs[email] = {
-        expiresDate: expiresDate.toISOString(),
-        activatedBy: 'admin',
-        activatedAt: new Date().toISOString()
-    };
+    const existingSubs = await loadSubscriptions();
+    const existing = existingSubs.find(s => s.email === email);
     
-    saveSubscriptions(subs);
+    if (existing) {
+        await updateSubscription(email, { expires_date: expiresDate.toISOString() });
+    } else {
+        await saveSubscription({
+            email: email,
+            expires_date: expiresDate.toISOString(),
+            activated_by: 'admin',
+            activated_at: new Date().toISOString()
+        });
+    }
+    
     alert(`Abbonamento attivato per ${email} per 30 giorni`);
     loadAdminData();
 }
 
-function deactivateSubscription(email) {
-    const subs = loadSubscriptions();
-    delete subs[email];
-    saveSubscriptions(subs);
+async function deactivateSubscription(email) {
+    await deleteSubscription(email);
     alert(`Abbonamento disattivato per ${email}`);
     loadAdminData();
 }
 
-// Controlla se admin è già loggato
+// Inizializzazione admin
 if (document.getElementById('adminLogin') && localStorage.getItem('adminLoggedIn') === 'true') {
     document.getElementById('adminLogin').classList.add('hidden');
     document.getElementById('adminPanel').classList.remove('hidden');
     loadAdminData();
 }
-
-// Controllo automatico scadenze all'avvio (per pulizia)
-checkExpiredSubscriptions();
