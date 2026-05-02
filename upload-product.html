@@ -3,52 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-key="nav_upload">Carica prodotto - MarketHub</title>
+    <title>Carica prodotto - MarketHub</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
+                publicKey: "jWAGjsTtbQ-KGHCk6",
+            });
+        })();
+    </script>
 </head>
 <body>
+
 <nav class="navbar">
     <div class="nav-container">
-        <div class="logo" data-key="site_name">🛒 MarketHub</div>
+        <div class="logo">🛒 MarketHub</div>
         <div class="nav-links">
-            <a href="index.html" data-key="nav_home">Home</a>
-            <a href="products.html" data-key="nav_products">Prodotti</a>
-            <a href="dashboard.html" data-key="nav_dashboard">Dashboard</a>
-            <a href="upload-product.html" data-key="nav_upload">Carica</a>
-            <a href="exchange.html" data-key="nav_exchange">Exchange</a>
-            <a href="messages.html" data-key="nav_messages">Messaggi</a>
-            <div class="lang-switch"><button class="lang-btn" onclick="setLanguage('it')">🇮🇹</button><button class="lang-btn" onclick="setLanguage('en')">🇬🇧</button></div>
-            <a href="#" onclick="logout()" data-key="nav_logout">Esci</a>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="upload-product.html">Carica prodotto</a>
+            <a href="#" onclick="logout()">Esci</a>
         </div>
     </div>
 </nav>
+
 <div class="upload-container">
-    <h1 data-key="nav_upload">Carica un nuovo prodotto</h1>
-    <p data-key="upload_sub">Inserisci i dettagli del prodotto per venderlo in tutto il mondo</p>
-    <form id="uploadProductForm" class="upload-form" enctype="multipart/form-data">
-        <div class="form-group"><label data-key="product_photo">Foto prodotto *</label><input type="file" id="productImageFile" accept="image/*" required><div id="imagePreview" class="image-preview"></div></div>
-        <div class="form-group"><label data-key="product_name_label">Nome prodotto *</label><input type="text" id="productName" required placeholder="Es. iPhone 14 Pro"></div>
-        <div class="form-group"><label data-key="product_description_label">Descrizione *</label><textarea id="productDescription" rows="4" required placeholder="Descrivi il prodotto in dettaglio..."></textarea></div>
-        <div class="form-row">
-            <div class="form-group"><label data-key="product_price_label">Prezzo (€) *</label><input type="number" id="productPrice" step="0.01" required></div>
-            <div class="form-group"><label data-key="product_category_label">Categoria *</label><select id="productCategory" required><option data-key="cat_electronics">Elettronica</option><option data-key="cat_clothing">Abbigliamento</option><option data-key="cat_home">Casa</option><option data-key="cat_sport">Sport</option><option data-key="cat_collectibles">Collezionismo</option><option data-key="cat_other">Altro</option></select></div>
-            <div class="form-group"><label data-key="product_quantity_label">Quantità</label><input type="number" id="productQuantity" value="1" min="1"></div>
-        </div>
-        <div class="form-group"><label data-key="product_condition_label">Condizione</label><select id="productCondition"><option>Nuovo</option><option>Come nuovo</option><option>Ottimo</option><option>Buono</option></select></div>
-        <div class="form-row">
-            <div class="form-group"><label data-key="product_shipping_from_label">Paese di spedizione</label><select id="productShippingFrom"><option value="IT">Italia</option><option value="EU">Europa</option><option value="Worldwide">Mondo</option></select></div>
-            <div class="form-group"><label data-key="product_shipping_cost_label">Costo spedizione (€)</label><input type="number" id="productShippingCost" value="0" step="0.01"></div>
+    <h1>Carica un nuovo prodotto</h1>
+    <p>Inserisci i dettagli del prodotto. Verrà esaminato e pubblicato sul nostro canale Telegram</p>
+    
+    <div id="subscriptionWarning" class="alert error" style="display: none;">
+        ⚠️ Non hai un abbonamento attivo. <a href="dashboard.html">Attivalo ora</a> per poter caricare prodotti.
+    </div>
+    
+    <form id="uploadProductForm" class="upload-form" enctype="multipart/form-data" style="display: none;">
+        <div class="form-group">
+            <label>Foto prodotto *</label>
+            <input type="file" id="productImageFile" accept="image/*" required>
+            <div id="imagePreview" class="image-preview"></div>
         </div>
         <div class="form-group">
-            <label for="affiliateProductId">Affiliate Product ID (UUID)</label>
-            <input type="text" id="affiliateProductId" name="affiliateProductId" placeholder="es. f47ac10b-58cc-4372-a567-0e02b2c3d479">
-            <small>Inserisci l'ID che hai creato nel pannello admin del programma di affiliazione</small>
+            <label>Nome prodotto *</label>
+            <input type="text" id="productName" required placeholder="Es. iPhone 14 Pro">
         </div>
-        <button type="submit" class="btn btn-primary btn-large" data-key="publish_product">📤 Pubblica prodotto</button>
+        <div class="form-group">
+            <label>Descrizione *</label>
+            <textarea id="productDescription" rows="4" required placeholder="Descrivi il prodotto in dettaglio..."></textarea>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Prezzo (€) *</label>
+                <input type="number" id="productPrice" step="0.01" required>
+            </div>
+            <div class="form-group">
+                <label>Categoria</label>
+                <select id="productCategory">
+                    <option>Elettronica</option>
+                    <option>Abbigliamento</option>
+                    <option>Casa</option>
+                    <option>Sport</option>
+                    <option>Collezionismo</option>
+                    <option>Altro</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Quantità</label>
+                <input type="number" id="productQuantity" value="1" min="1">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Condizione</label>
+            <select id="productCondition">
+                <option>Nuovo</option>
+                <option>Come nuovo</option>
+                <option>Ottimo</option>
+                <option>Buono</option>
+            </select>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Paese di spedizione</label>
+                <select id="productShippingFrom">
+                    <option value="IT">Italia</option>
+                    <option value="EU">Europa</option>
+                    <option value="Worldwide">Mondo</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Costo spedizione (€)</label>
+                <input type="number" id="productShippingCost" value="0" step="0.01">
+            </div>
+        </div>
+        
+        <!-- Riepilogo contatti -->
+        <div class="form-group">
+            <label>I tuoi contatti (verranno mostrati agli acquirenti)</label>
+            <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 12px;">
+                <p>📧 Email: <strong id="displayEmail"></strong></p>
+                <p>📱 Telegram: <strong id="displayTelegram"></strong></p>
+            </div>
+            <small>Gli acquirenti ti contatteranno direttamente su questi canali</small>
+        </div>
+        
+        <button type="submit" class="btn btn-primary btn-large">📤 Invia richiesta</button>
     </form>
     <div id="uploadMessage" class="alert"></div>
 </div>
+
 <script src="script.js"></script>
 </body>
 </html>
