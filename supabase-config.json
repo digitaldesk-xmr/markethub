@@ -1,6 +1,5 @@
 // supabase-config.js
 const SUPABASE_CONFIG = {
-    URL: "https://lfbibwzqgbiiokwpfhps.supabase.co",        // Sostituisci con il tuo Project URL
-    ANON_KEY: "sb_publishable_WsVw2r4KdC7jo75t4q9sOw_bcfXjP1N"  // Sostituisci con la tua anon key
+    URL: "https://wwhagqzbqydicoyvrbjo.supabase.co",
+    ANON_KEY: "sb_publishable_eyYrHU1K4-SD9bgC37S2rw_jpwCywRD"
 };
-export default SUPABASE_CONFIG;
