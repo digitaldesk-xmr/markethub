@@ -1,6 +1,6 @@
 // ==================== SUPABASE CONFIG ==================
-const SUPABASE_URL = "https://tuo-progetto.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...";
+const SUPABASE_URL = "https://wwhagqzbqydicoyvrbjo.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_eyYrHU1K4-SD9bgC37S2rw_jpwCywRD";
 
 async function supabaseFetch(endpoint, options = {}) {
     const url = `${SUPABASE_URL}/rest/v1/${endpoint}`;
