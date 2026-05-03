@@ -9,6 +9,37 @@ async function callApi(endpoint, method, body = null) {
     return res.json();
 }
 
+// ==================== MODALI ====================
+function openRegisterModal() {
+    document.getElementById('registerModal').style.display = 'flex';
+}
+function closeRegisterModal() {
+    document.getElementById('registerModal').style.display = 'none';
+}
+function openLoginModal() {
+    document.getElementById('loginModal').style.display = 'flex';
+}
+function closeLoginModal() {
+    document.getElementById('loginModal').style.display = 'none';
+}
+
+// Collegamento pulsanti navbar
+document.getElementById('openRegisterModalLink')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openRegisterModal();
+});
+document.getElementById('openLoginModalLink')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openLoginModal();
+});
+
+// Chiusura modali cliccando fuori
+window.onclick = function(event) {
+    if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+    }
+};
+
 // ==================== REGISTRAZIONE ==================
 if (document.getElementById('registerForm')) {
     document.getElementById('registerForm').addEventListener('submit', async (e) => {
@@ -34,6 +65,10 @@ if (document.getElementById('registerForm')) {
             msgDiv.innerHTML = '✅ Registrato! Attendi attivazione admin.';
             msgDiv.className = 'alert success';
             document.getElementById('registerForm').reset();
+            setTimeout(() => {
+                closeRegisterModal();
+                openLoginModal();
+            }, 2000);
         }
     });
 }
@@ -59,7 +94,9 @@ if (document.getElementById('loginForm')) {
         if (ok) {
             msgDiv.innerHTML = 'Login effettuato! Reindirizzamento...';
             msgDiv.className = 'alert success';
-            setTimeout(() => window.location.href = 'dashboard.html', 1500);
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1500);
         } else {
             msgDiv.innerHTML = 'Email o password errati';
             msgDiv.className = 'alert error';
@@ -77,6 +114,7 @@ window.logout = function() {
 if (document.getElementById('forgotPasswordLink')) {
     document.getElementById('forgotPasswordLink').addEventListener('click', (e) => {
         e.preventDefault();
+        closeLoginModal();
         document.getElementById('forgotPasswordModal').style.display = 'flex';
     });
 }
@@ -109,7 +147,7 @@ window.closeForgotModal = function() {
 async function loadDashboard() {
     const user = JSON.parse(localStorage.getItem('loggedInUser'));
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
     
@@ -151,7 +189,7 @@ async function checkSubscription() {
 function setupUploadForm() {
     const user = JSON.parse(localStorage.getItem('loggedInUser'));
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
     
@@ -235,7 +273,7 @@ if (window.location.pathname.includes('upload-product.html')) {
 async function loadMyProducts() {
     const user = JSON.parse(localStorage.getItem('loggedInUser'));
     if (!user) {
-        window.location.href = 'login.html';
+        window.location.href = 'index.html';
         return;
     }
     
