@@ -9,7 +9,7 @@ async function callApi(endpoint, method, body = null) {
     return res.json();
 }
 
-// ==================== MODALI ====================
+// ==================== APERTURA MODALI ====================
 function openRegisterModal() {
     document.getElementById('registerModal').style.display = 'flex';
 }
@@ -23,7 +23,7 @@ function closeLoginModal() {
     document.getElementById('loginModal').style.display = 'none';
 }
 
-// Collegamento pulsanti navbar
+// Collega i pulsanti navbar
 document.getElementById('openRegisterModalLink')?.addEventListener('click', (e) => {
     e.preventDefault();
     openRegisterModal();
@@ -33,7 +33,7 @@ document.getElementById('openLoginModalLink')?.addEventListener('click', (e) => 
     openLoginModal();
 });
 
-// Chiusura modali cliccando fuori
+// Chiudi modali cliccando fuori
 window.onclick = function(event) {
     if (event.target.classList.contains('modal')) {
         event.target.style.display = 'none';
