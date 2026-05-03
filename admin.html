@@ -5,22 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - MarketHub</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        .admin-container { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-        .admin-header { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 2rem; margin-bottom: 2rem; text-align: center; }
-        .users-table { background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem; overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        th { color: #f97316; }
-        .badge-active { background: #22c55e; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; display: inline-block; }
-        .badge-inactive { background: #ef4444; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; display: inline-block; }
-        .badge-expired { background: #f97316; color: white; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.8rem; display: inline-block; }
-        .btn-small { padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0 0.2rem; border-radius: 20px; cursor: pointer; border: none; }
-        .btn-activate { background: #22c55e; color: white; }
-        .btn-deactivate { background: #ef4444; color: white; }
-        .login-form { max-width: 400px; margin: 5rem auto; background: rgba(255,255,255,0.05); padding: 2rem; border-radius: 24px; }
-        .hidden { display: none; }
+        .admin-container{max-width:1200px;margin:2rem auto;padding:0 2rem}
+        .admin-header{background:rgba(255,255,255,0.05);border-radius:24px;padding:2rem;margin-bottom:2rem;text-align:center}
+        .users-table{background:rgba(255,255,255,0.05);border-radius:24px;padding:1.5rem;overflow-x:auto}
+        table{width:100%;border-collapse:collapse}
+        th,td{padding:1rem;text-align:left;border-bottom:1px solid rgba(255,255,255,0.1)}
+        th{color:#f97316}
+        .badge-active{background:#22c55e;color:white;padding:0.2rem 0.8rem;border-radius:20px;display:inline-block}
+        .badge-inactive{background:#ef4444;color:white;padding:0.2rem 0.8rem;border-radius:20px;display:inline-block}
+        .badge-expired{background:#f97316;color:white;padding:0.2rem 0.8rem;border-radius:20px;display:inline-block}
+        .btn-small{padding:0.3rem 0.8rem;border-radius:20px;margin:0 0.2rem;border:none;cursor:pointer}
+        .btn-activate{background:#22c55e;color:white}
+        .btn-deactivate{background:#ef4444;color:white}
+        .login-form{max-width:400px;margin:5rem auto;background:rgba(255,255,255,0.05);padding:2rem;border-radius:24px}
+        .hidden{display:none}
     </style>
 </head>
 <body>
@@ -39,31 +38,33 @@
 <div id="adminLogin" class="admin-container">
     <div class="login-form">
         <h2>Admin Login</h2>
-        <input type="password" id="adminPassword" placeholder="Inserisci password" style="width:100%; padding:0.8rem; margin:1rem 0; border-radius:12px;">
+        <input type="password" id="adminPassword" placeholder="Password">
         <button class="btn btn-primary" onclick="checkAdminLogin()">Accedi</button>
-        <p style="margin-top:1rem; color:#94a3b8;">Password predefinita: <strong>admin123</strong></p>
+        <p>Password: admin123</p>
     </div>
 </div>
 
 <div id="adminPanel" class="admin-container hidden">
     <div class="admin-header">
         <h1>👑 Pannello Admin</h1>
-        <p>Gestisci gli abbonamenti dei venditori</p>
+        <p>Gestisci abbonamenti dei venditori</p>
     </div>
+    
     <div class="users-table">
         <h3>📋 Lista Venditori Registrati</h3>
-        <div style="overflow-x: auto;">
+        <div style="overflow-x:auto">
             <table id="usersTable">
                 <thead>
-                    <tr><th>Nome</th><th>Email</th><th>Telegram</th><th>Data registrazione</th><th>Abbonamento</th><th>Scadenza</th><th>Azioni</th></tr>
+                    <tr><th>Nome</th><th>Email</th><th>Telegram</th><th>Registrazione</th><th>Abbonamento</th><th>Scadenza</th><th>Azioni</th></tr>
                 </thead>
                 <tbody id="usersTableBody"></tbody>
             </table>
         </div>
     </div>
-    <div style="margin-top: 2rem; background: rgba(255,255,255,0.05); border-radius: 24px; padding: 1.5rem;">
+    
+    <div style="margin-top:2rem; background:rgba(255,255,255,0.05); border-radius:24px; padding:1.5rem">
         <h3>📊 Statistiche</h3>
-        <div style="display: flex; gap: 2rem; margin-top: 1rem; flex-wrap: wrap;">
+        <div style="display:flex; gap:2rem; flex-wrap:wrap">
             <div><strong id="statUsers">0</strong> Venditori registrati</div>
             <div><strong id="statActive">0</strong> Abbonamenti attivi</div>
             <div><strong id="statExpiring">0</strong> Scadono in &lt; 7 giorni</div>
