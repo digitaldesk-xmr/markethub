@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I miei annunci - MarketHub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">🛒 MarketHub</div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="upload-product.html">Carica annuncio</a>
+            <a href="my-products.html">Miei annunci</a>
+            <a href="#" onclick="logout()">Esci</a>
+        </div>
+    </div>
+</nav>
+
+<div class="products-container">
+    <div class="products-header">
+        <h1>I miei annunci</h1>
+        <p>Elenco degli annunci che hai inviato</p>
+    </div>
+    <div id="myProductsList" class="products-grid"></div>
+    <div id="noProductsMessage" style="display:none; text-align:center; padding:2rem;">
+        Nessun annuncio ancora inviato.
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
