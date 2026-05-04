@@ -15,5 +15,6 @@ export default async function handler(req, res) {
   if (error || !data || data.length === 0) {
     return res.status(401).json({ error: 'Invalid credentials' });
   }
+  
   res.status(200).json({ user: data[0] });
 }
